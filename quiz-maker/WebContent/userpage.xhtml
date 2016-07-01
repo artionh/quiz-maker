@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets" > 
+
+<h:head><title>hello</title>
+<h:outputStylesheet library="css" name="style.css" />
+
+</h:head>
+
+ <h:body >
+ 
+ <ui:insert name="header" >
+		  <ui:include src="user-header.xhtml" />
+		</ui:insert>
+		
+		<h:form class="forma">
+  <table >
+  <tr>
+  <td><label>Category</label></td>
+  <td>
+    
+        <p:selectOneMenu id="city" value="#{question.category.name}">
+            <f:selectItem itemLabel="Select One" itemValue=""/>
+            <f:selectItems   value="#{allData.categories}"/>
+        </p:selectOneMenu>
+   </td>
+  </tr> 
+   <tr>
+     <td><label >Question</label></td>
+      <td> <h:inputText id="question" required="true" value= "#{question.name}" requiredMessage="*required" /> </td>
+       <td colspan="2"><h:message for="question" styleClass="error" /></td>
+   </tr>
+   
+   <tr><td></td><td><h:commandButton action="#{question.add()}"  value="Submit"  /> </td></tr>
+  
+
+  </table>
+  
+   <p:watermark value="Your question" for="question"  />
+ 
+
+</h:form>
+		
+		
+		<h:form>
+
+      <p:accordionPanel >
+        <p:tab title="Your Questions">
+          <p:dataTable var="question" value="#{questionBean.qu}">
+            <p:column headerText="Description">
+              <h:outputText value="#{question.name}"/>
+            </p:column>   
+            <p:column headerText="Category" >
+            <h:outputText value="#{question.category.name}" />
+            </p:column> 
+            <p:column headerText="Action">
+            <h:outputLink value="ref.xhtml" style="color:blue" >View</h:outputLink>|
+            <h:outputLink value="ref.xhtml" style="color:blue">Edit</h:outputLink>|
+            <h:outputLink value="ref.xhtml" style="color:blue">Delete</h:outputLink>
+            </p:column>
+            
+          
+            
+            
+                 
+          </p:dataTable>
+        
+        
+        </p:tab>
+        
+          
+      </p:accordionPanel>
+
+   </h:form>
+		
+		
+</h:body>
+
+</html>		

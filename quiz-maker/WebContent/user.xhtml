@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets" > 
+
+<h:head><title>Users</title>
+<style>
+       .error{color:red}
+   
+    </style>
+    <h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+
+<ui:insert name="header" >
+		  <ui:include src="header.xhtml" />
+		</ui:insert>
+		
+ <h:form class="forma">
+  <table >
+  
+  <tr>
+     <td><label >Add Username</label></td>
+      <td> <h:inputText id="username" value="#{user.username}" required="true" requiredMessage="*required" /> </td>
+       <td colspan="2"><h:message for="username" styleClass="error" /></td>
+   </tr>
+   
+   <tr>
+     <td><label >Add Password</label></td>
+      <td> <h:inputText id="password" required="true" value="{#user.password}" requiredMessage="*required"   /> </td>
+       <td colspan="2"><h:message for="password" styleClass="error" /></td>
+   </tr>
+   
+   <tr><td></td><td><h:commandButton action="#{user.add}" value="Submit"  /> </td></tr>
+  
+
+  </table>
+  
+   <p:watermark value="new username" for="username"  />
+  <p:watermark value="new password" for="password"  />
+ 
+
+</h:form>
+
+<br></br>
+
+<h:form>
+
+      <p:accordionPanel >
+        <p:tab title="Users" style="background:red">
+          <p:dataTable var="question" value="#{questionBean.qu}">
+            <p:column headerText="Description">
+              <h:outputText value="#{question.name}"/>
+            </p:column>   
+            <p:column headerText="Category" >
+            <h:outputText value="#{question.category}" />
+            </p:column> 
+            
+            <p:column headerText="Photo">
+            <h:outputText value="#{question.photo}" />
+            </p:column>
+            
+            <p:column headerText="Action">
+            <p:growl id="growl" showDetail="true" />
+ 
+      <p:commandButton value="View" icon="ui-icon-extlink" actionListener="#{dfViewQuestion.viewQuestion}">
+        <p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" update="growl" />
+        </p:commandButton>
+            <h:outputLink value="ref.xhtml">Edit</h:outputLink>|<h:outputLink value="ref.xhtml">Delete</h:outputLink>
+            </p:column>
+            
+          
+            
+            
+                 
+          </p:dataTable>
+        
+        
+        </p:tab>
+        
+        
+      
+      
+      </p:accordionPanel>
+</h:form>
+
+</h:body>
+
+</html>

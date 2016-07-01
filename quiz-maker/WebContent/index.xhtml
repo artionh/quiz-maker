@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets" > 
+
+<h:head><title>hello</title>
+<h:outputStylesheet library="css" name="style.css" />
+
+</h:head>
+
+ <h:body >
+ 
+ <ui:insert name="header" >
+		  <ui:include src="header.xhtml" />
+		</ui:insert>
+		
+
+<h:form>
+
+      <p:accordionPanel >
+        <p:tab title="Questions">
+          <p:dataTable var="question" value="#{questionBean.qu}">
+            <p:column headerText="Description">
+              <h:outputText value="#{question.name}"/>
+            </p:column>   
+            <p:column headerText="Category" >
+            <h:outputText value="#{question.category}" />
+            </p:column> 
+            
+            <p:column headerText="Photo">
+            <h:outputText value="#{question.photo}" />
+            </p:column>
+            
+            <p:column headerText="Action">
+            <h:outputLink value="ref.xhtml" style="color:blue" >View</h:outputLink>|
+            <h:outputLink value="ref.xhtml" style="color:blue">Edit</h:outputLink>|
+            <h:outputLink value="ref.xhtml" style="color:blue">Delete</h:outputLink>
+            </p:column>
+            
+          
+            
+            
+                 
+          </p:dataTable>
+        
+        
+        </p:tab>
+        
+        
+        <p:tab title="Users" style="background:red">
+          <p:dataTable var="question" value="#{questionBean.qu}">
+            <p:column headerText="Description">
+              <h:outputText value="#{question.name}"/>
+            </p:column>   
+            <p:column headerText="Category" >
+            <h:outputText value="#{question.category}" />
+            </p:column> 
+            
+            <p:column headerText="Photo">
+            <h:outputText value="#{question.photo}" />
+            </p:column>
+            
+            <p:column headerText="Action">
+            <h:outputLink value="ref.xhtml" style="color:blue">Edit</h:outputLink>|<h:outputLink value="ref.xhtml" style="color:blue">Delete</h:outputLink>
+            </p:column>
+            
+ 
+                 
+          </p:dataTable>
+        
+        
+        </p:tab>
+      
+      
+      </p:accordionPanel>
+
+   </h:form>
+ 
+ </h:body>
+
+</html>
