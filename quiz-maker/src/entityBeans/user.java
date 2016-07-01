@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
-import DAO.userDAO;
+import daos.UserDao;
 
 @ManagedBean(name = "user")
 @SessionScoped
@@ -68,7 +68,7 @@ public class user implements CRUDActions {
 	}
 
 	public void setRoli() {
-		userDAO obj = new userDAO();
+		UserDao obj = new UserDao();
 		this.roli = obj.setRoli(1);
 	}
 
@@ -82,7 +82,7 @@ public class user implements CRUDActions {
 
 	public String add() {
 		clearALL();
-		userDAO obj = new userDAO();
+		UserDao obj = new UserDao();
 		setRoli();
 		obj.ADD(this);
 		clearALL();
@@ -91,7 +91,7 @@ public class user implements CRUDActions {
 	}
 
 	public String update() {
-		userDAO obj = new userDAO();
+		UserDao obj = new UserDao();
 		obj.UPDATE(this);
 		clearALL();
 		return null;
@@ -99,19 +99,19 @@ public class user implements CRUDActions {
 	}
 
 	public String delete() {
-		userDAO obj = new userDAO();
+		UserDao obj = new UserDao();
 		obj.DELETE(id);
 		clearALL();
 		return null;
 	}
 
 	public List<user> listUsers() {
-		userDAO obj = new userDAO();
+		UserDao obj = new UserDao();
 		return obj.getUsers();
 	}
 
 	public String getUser() {
-		userDAO obj1 = new userDAO();
+		UserDao obj1 = new UserDao();
 		user objus = obj1.getUser(password, username);
 
 		if (objus != null) {
@@ -134,9 +134,7 @@ public class user implements CRUDActions {
 		this.questions = null;
 	}
 
-	public void setData(user obj) {
-		SessionUtils.getSession().setAttribute("username", obj.username);
-	}
+
 
 	public String logout() {
 		HttpSession session = SessionUtils.getSession();

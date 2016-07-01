@@ -1,15 +1,19 @@
-package DAO;
+package daos;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 
 import org.hibernate.Session;
 
+import DAO.HibernateUtil;
 import entityBeans.role;
 import entityBeans.user;
 
-public class userDAO {
+@ManagedBean(name="userDao")
+@ApplicationScoped
+public class UserDao {
 	public void ADD(user u){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
