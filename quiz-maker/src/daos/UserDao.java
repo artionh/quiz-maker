@@ -4,10 +4,7 @@ import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-
 import org.hibernate.Session;
-
-import DAO.HibernateUtil;
 import entityBeans.role;
 import entityBeans.user;
 
@@ -15,7 +12,7 @@ import entityBeans.user;
 @ApplicationScoped
 public class UserDao {
 	public void add(user u){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = hibernateUtil.getSessionFactory().openSession();
         try {
         	 session.beginTransaction();
 	        session.save(u);
@@ -26,7 +23,7 @@ public class UserDao {
 	    }
 	}
 	public void delete(int id){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = hibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             user u = session.load(user.class, new Integer(id));
@@ -36,7 +33,7 @@ public class UserDao {
         }}
         public void update(user u){
     	
-            Session session = HibernateUtil.getSessionFactory().openSession();
+            Session session = hibernateUtil.getSessionFactory().openSession();
             try {
                 session.beginTransaction();
                 session.update(u);
@@ -51,7 +48,7 @@ public class UserDao {
 		@SuppressWarnings("unchecked")
 		public List<user> getUsers(){
         	List<user> users = new ArrayList<>();
-             Session session = HibernateUtil.getSessionFactory().openSession();
+             Session session = hibernateUtil.getSessionFactory().openSession();
              try 
              {  session.beginTransaction();
                 users = session.createQuery("from user").getResultList();
@@ -63,7 +60,7 @@ public class UserDao {
         	
         }
 		public user getUser(String password,String username){
-	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        Session session = hibernateUtil.getSessionFactory().openSession();
 	        try 
 	        {  session.beginTransaction();
 	       String sql =  "from user s where"
@@ -76,7 +73,7 @@ public class UserDao {
 	
 		public role setRoli(int id){
 			
-			 Session session = HibernateUtil.getSessionFactory().openSession();
+			 Session session = hibernateUtil.getSessionFactory().openSession();
 		        try {
 		           session.beginTransaction();
 		           return( session.load(role.class, new Integer(id)));

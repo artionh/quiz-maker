@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 
 import org.hibernate.Session;
 
-import DAO.HibernateUtil;
 import entityBeans.category;
 
 @ManagedBean(name="categpryDao")
@@ -16,7 +15,7 @@ import entityBeans.category;
 public class CategoryDao {
 	
 	public void add(category c){
-	    Session session = HibernateUtil.getSessionFactory().openSession();
+	    Session session = hibernateUtil.getSessionFactory().openSession();
 	    try {
 	        session.beginTransaction();
 	        session.save(c);
@@ -28,7 +27,7 @@ public class CategoryDao {
 	}
 	public void delete(int id){
 		
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = hibernateUtil.getSessionFactory().openSession();
         try {
            session.beginTransaction();
            category c = (category) session.load(category.class, new Integer(id));
@@ -42,7 +41,7 @@ public class CategoryDao {
         }
 	}
 	public void update(category c){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = hibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.update(c);
@@ -56,7 +55,7 @@ public class CategoryDao {
 	@SuppressWarnings("unchecked")
 	public List<category> getCategories(){
     	List<category> categories = new ArrayList<category>();
-         Session session = HibernateUtil.getSessionFactory().openSession();
+         Session session = hibernateUtil.getSessionFactory().openSession();
          try 
          {   session.beginTransaction();
              categories = session.createQuery("from category").getResultList();
