@@ -14,17 +14,18 @@ import entityBeans.user;
 @ManagedBean(name="userDao")
 @ApplicationScoped
 public class UserDao {
-	public void ADD(user u){
+	public void add(user u){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
         	 session.beginTransaction();
 	        session.save(u);
 	        session.getTransaction().commit();
 	    } finally {
-	        session.close();
+	    	 session.flush();
+	         session.close();
 	    }
 	}
-	public void DELETE(int id){
+	public void delete(int id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
@@ -33,7 +34,7 @@ public class UserDao {
         } finally {
             session.close();
         }}
-        public void UPDATE(user u){
+        public void update(user u){
     	
             Session session = HibernateUtil.getSessionFactory().openSession();
             try {
@@ -41,7 +42,8 @@ public class UserDao {
                 session.update(u);
                 session.getTransaction().commit();}
             finally {
-                session.close();
+            	 session.flush();
+                 session.close();
             }
     		
     	}
@@ -54,6 +56,7 @@ public class UserDao {
              {  session.beginTransaction();
                 users = session.createQuery("from user").getResultList();
              } finally {
+            	 session.flush();
                  session.close();
              }
              return users;
@@ -67,7 +70,8 @@ public class UserDao {
 					+ " s.username='"+username+"' AND s.password='"+password+"'";
 	           return    (user) session.createQuery(sql).getSingleResult();
 	        } finally {
-	            session.close();
+	        	 session.flush();
+	             session.close();
 	        }}
 	
 		public role setRoli(int id){
@@ -78,7 +82,8 @@ public class UserDao {
 		           return( session.load(role.class, new Integer(id)));
 		            
 		        } finally {
-		            session.close();
+		        	 session.flush();
+		             session.close();
 		        }
 		      
 		}
