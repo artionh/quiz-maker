@@ -76,12 +76,12 @@ public void add(question q){
 	@SuppressWarnings("unchecked")
 	public List<question> getQuestionRandom(int id_categ,int m)
 	{
-		
+		  
 		List<question> questions = new ArrayList<question>();
         Session session = hibernateUtil.getSessionFactory().openSession();
         try 
         {   session.beginTransaction();
-            questions = session.createQuery("from question where category_id="+id_categ+"  order by rand() ").setFetchSize(m).getResultList();
+            questions = session.createQuery("from question where category_id="+id_categ+"  order by rand() ").setMaxResults(m).getResultList();
       
         } finally {
             session.close();
@@ -89,7 +89,7 @@ public void add(question q){
         return questions; 
 		
 		
-	}
+	} 
 	 public List<question> createQuiz(){
 		 CategoryDao categoryDao = new CategoryDao();
 		 List<entities.category> categories = categoryDao.getCategories();
