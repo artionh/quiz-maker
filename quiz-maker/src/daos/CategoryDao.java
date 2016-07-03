@@ -2,15 +2,14 @@ package daos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-
 import org.hibernate.Session;
 
-import entityBeans.category;
+import entities.category;
 
-@ManagedBean(name="categpryDao")
+
+@ManagedBean(name="categoryDao")
 @ApplicationScoped
 public class CategoryDao {
 	

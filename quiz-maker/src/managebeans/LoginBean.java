@@ -1,21 +1,21 @@
 package managebeans;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-
+import daos.SessionUtils;
 import daos.UserDao;
-import entityBeans.SessionUtils;
-import entityBeans.user;
+import entities.user;
+
 
 @ManagedBean(name = "loginBean")
-@ViewScoped
+@SessionScoped
 public class LoginBean {
 
 	private String username;
 	private String password;
+	private user user;
 
 	@ManagedProperty(value = "#{userDao}")
 	UserDao userDao;
@@ -23,9 +23,9 @@ public class LoginBean {
 	@PostConstruct
 	public void init() {
 	}
-
+	
 	public String login() {
-		user user = userDao.getUser(password, username);
+		user = userDao.getUser(password, username);
 		setData(user);
 		return null;
 	}
@@ -46,7 +46,7 @@ public class LoginBean {
 		this.password = password;
 	}
 
-	public void setData(user obj) {
-		SessionUtils.getSession().setAttribute("username", obj.getUsername());
+	public void setData(user user) {
+		SessionUtils.getSession().setAttribute("username", user.getUsername());
 	}
 }

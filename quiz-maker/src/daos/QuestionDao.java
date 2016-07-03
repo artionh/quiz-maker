@@ -6,7 +6,8 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import entityBeans.question;
+
+import entities.question;
 
 @ManagedBean(name="questionDao")
 @ApplicationScoped
@@ -89,6 +90,18 @@ public void add(question q){
 		
 		
 	}
+	 public List<question> createQuiz(){
+		 CategoryDao categoryDao = new CategoryDao();
+		 List<entities.category> categories = categoryDao.getCategories();
+		 List<question> questions = null;
+		 int m = 25/categories.size();
+		 for(int i = 0;i<categories.size();i++)
+		 {
+			 questions.addAll(getQuestionRandom(categories.get(i).getId(),m));
+			
+		 }
+		 return questions;
+			 }
 	
 
 }

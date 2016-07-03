@@ -1,7 +1,9 @@
 package entities;
 
 
+
 import java.sql.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +21,7 @@ public class question  {
 	@GeneratedValue(strategy=GenerationType.AUTO)  
 	private int id;
 	private String name;
-	private Date date;
+	private Date date=new Date(System.currentTimeMillis());
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private category category ;

@@ -5,8 +5,9 @@ import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import org.hibernate.Session;
-import entityBeans.role;
-import entityBeans.user;
+
+import entities.role;
+import entities.user;
 
 @ManagedBean(name="userDao")
 @ApplicationScoped

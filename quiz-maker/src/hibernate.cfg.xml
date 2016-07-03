@@ -23,11 +23,11 @@
 		<!-- Set the current session context -->
 		<property name="current_session_context_class">thread</property>
 		  <property name="hbm2ddl.auto">validate</property>
-	<mapping class="entityBeans.user"/>		
-	<mapping class="entityBeans.question"/>		
-	<mapping class="entityBeans.category"/>
-	<mapping class="entityBeans.answer"/>
-	<mapping class="entityBeans.role"/>
+	<mapping class="entities.user"/>		
+	<mapping class="entities.answer"/>		
+	<mapping class="entities.category"/>
+	<mapping class="entities.role"/>
+	<mapping class="entities.question"/>
 	</session-factory>
 	
 
