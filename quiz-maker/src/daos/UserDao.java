@@ -85,5 +85,16 @@ public class UserDao {
 		        }
 		      
 		}
+		public user get(int id){
+	        Session session = hibernateUtil.getSessionFactory().openSession();
+	        user u = new user();
+	        try {
+	            session.beginTransaction();
+	            u = session.load(user.class, new Integer(id));
+	            return u;
+	        } finally {
+	            session.close();
+	        }}
+		
 		
 }

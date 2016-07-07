@@ -1,6 +1,7 @@
 package entities;
 
 
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 public class user  {
-	@Id
+	@Id  
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
@@ -28,7 +29,7 @@ public class user  {
 	@JoinColumn(name = "role_id")
 	private role roli;
 	@OneToMany(mappedBy = "useri", cascade = CascadeType.ALL)
-	private Set<question> questions;
+	private List<question> questions;
 
 	public user() {
 	}
@@ -65,11 +66,11 @@ public class user  {
 		this.roli = roli;
 	}
 
-	public Set<question> getQuestions() {
+	public List<question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Set<question> questions) {
+	public void setQuestions(List<question> questions) {
 		this.questions = questions;
 	}
 

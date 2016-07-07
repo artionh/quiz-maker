@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets" > 
+<h:head><title>hello</title>
+<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body >
+<h:form>
+ <ui:insert name="header" >
+		  <ui:include src="user-header.xhtml" />
+		</ui:insert>
+   <p:messages autoUpdate="true" />
+   <p:outputLabel for="car" value="Grouping: " />
+        <p:selectOneMenu id="car" value="#{questionBean.id}"  valueChangeListener="true">
+            <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
+      <f:ajax event="valueChange" />
+  </p:selectOneMenu>
+         <p:commandButton value="add" action="#{questionBean.display}" oncomplete="PF('dlg').show()"/>
+ 
+</h:form>
+</h:body>
+</html>	

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets" > 
+
+<h:head><title>hello</title>
+<h:outputStylesheet library="css" name="style.css" />
+
+</h:head>
+
+ <h:body >
+ 
+ <ui:insert name="header" >
+		  <ui:include src="user-header.xhtml" />
+		</ui:insert>
+		
+		<h:form class="forma">
+  <table >
+     <td><label >Question</label></td>
+      <td> <h:inputText id="question" required="true" value="" requiredMessage="*required" /> </td>
+       <td colspan="2"><h:message for="question" styleClass="error" /></td>
+   </tr>
+   <tr>
+     <td><label >Answer</label></td>
+      <td> <h:inputText id="answer" required="true" value=""  requiredMessage="*required"  /> </td>
+       <td colspan="2"><h:message for="answer" styleClass="error" /></td>
+   </tr>
+   
+   <tr>
+     <td><label >Answer</label></td>
+      <td> <h:inputText id="answer1" required="true" value="" requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
+       <td colspan="2"><h:message for="answer1" styleClass="error" /></td>
+   </tr>
+   
+   <tr>
+     <td><label >Answer</label></td>
+      <td> <h:inputText id="answer2" required="true" value=""  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
+       <td colspan="2"><h:message for="answer2" styleClass="error" /></td>
+   </tr>
+   
+   <tr>
+     <td><label >Answer</label></td>
+      <td> <h:inputText id="answer3" required="true" value=""  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
+       <td colspan="2"><h:message for="answer3" styleClass="error" /></td>
+   </tr>
+   
+   <tr><td></td><td> 
+   <p:commandButton value="add" actionListener="#{question.update}" />  
+   </td></tr>
+  
+
+  </table>
+  
+   <p:watermark value="Your question" for="question"  />
+  <p:watermark value="Correct answer" for="answer"  />
+   <p:watermark value="wrong answer" for="answer1"  />
+    <p:watermark value="wrong answer" for="answer2"  />
+       <p:watermark value="wrong answer" for="answer3"  />
+
+</h:form>
+</h:body>
+
+</html>		

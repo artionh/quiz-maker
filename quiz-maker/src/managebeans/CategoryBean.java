@@ -5,59 +5,68 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+ 
 
 import daos.CategoryDao;
+ 
 import entities.category;
 
 
 @ManagedBean(name = "categoryBean")
-@ViewScoped
+@SessionScoped
 public class CategoryBean {
-	private category category;
+	
 	private List<category> categories;
 	@ManagedProperty(value = "#{categoryDao}")
 	private CategoryDao categoryDao;
+	private String name;		
+	private int id;
 	
 	@PostConstruct
 	public void init() {
+		 categories  = categoryDao.getCategories();	 
 	}
-
-
-	public category getCategory() {
-		return category;
-	}
-
-
-	public void setCategory(category category) {
-		this.category = category;
-	}
-
-
 	public List<category> getCategories() {
-		categories = categoryDao.getCategories();
 		return categories;
 	}
 
 	public void setCategories(List<category> categories) {
 		this.categories = categories;
 	}
-	
-	public String add(){
-	 categoryDao.add(category);
-	return null;
-	}
-	public String update(){
-	
-		categoryDao.update(category);
-		return null;
-		
-	}
-	public String delete(){
-		categoryDao.delete(category.getId());
-		return null;
-		
+
+ 
+
+	public CategoryDao getCategoryDao() {
+		return categoryDao;
 	}
 
+
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
+
+	
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	} 
+	
+	public String getName() {
+		return name;
+	} 
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	 
 	
 }

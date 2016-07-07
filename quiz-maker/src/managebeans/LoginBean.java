@@ -1,33 +1,56 @@
 package managebeans;
 
+
+
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+ 
+import javax.servlet.http.HttpSession;
+
 import daos.SessionUtils;
 import daos.UserDao;
 import entities.user;
 
-
-@ManagedBean(name = "loginBean")
+@ManagedBean(name="loginBean")
 @SessionScoped
 public class LoginBean {
-
 	private String username;
 	private String password;
 	private user user;
 
-	@ManagedProperty(value = "#{userDao}")
+	@ManagedProperty(value="#{userDao}")
 	UserDao userDao;
 
 	@PostConstruct
 	public void init() {
 	}
-	
+
 	public String login() {
-		user = userDao.getUser(password, username);
-		setData(user);
-		return null;
+		user=userDao.getUser(password,username);
+		if(user==null)
+			return "userpage";
+		else{
+			setData(user);
+		return "userpage";
+		}
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public user getUser() {
+		return user;
+	}
+
+	public void setUser(user user) {
+		this.user = user;
 	}
 
 	public String getUsername() {
@@ -41,12 +64,15 @@ public class LoginBean {
 	public String getPassword() {
 		return password;
 	}
-
+  
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	public void setData(user user) {
-		SessionUtils.getSession().setAttribute("username", user.getUsername());
+		HttpSession session = SessionUtils.getSession();
+		session.setAttribute("username", user.getUsername());
+		session.setAttribute("id", user.getId());
+	
 	}
 }

@@ -33,7 +33,7 @@ public void add(answer a){
         
            
         } finally {
-            session.flush();
+            
             session.close();
         }
 	}
@@ -45,8 +45,9 @@ public void add(answer a){
             session.getTransaction().commit();
      
         } finally {
-            session.flush();
+           
             session.close();
         }
 	}
+
 }

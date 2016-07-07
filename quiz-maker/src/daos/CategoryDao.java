@@ -64,5 +64,16 @@ public class CategoryDao {
          return categories;
     	
     }
-
+public category get(int id){
+	category c = new category();
+        Session session = hibernateUtil.getSessionFactory().openSession();
+        try {
+           session.beginTransaction();
+           c = (category) session.load(category.class, new Integer(id));
+            return c;
+        }  finally{
+            
+            session.close();
+        }
+	}
 }
