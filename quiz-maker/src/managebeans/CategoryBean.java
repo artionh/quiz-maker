@@ -6,9 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
- 
-
 import daos.CategoryDao;
  
 import entities.category;
@@ -29,7 +26,8 @@ public class CategoryBean {
 		 categories  = categoryDao.getCategories();	 
 	}
 	public List<category> getCategories() {
-		return categories;
+		
+			return categories;
 	}
 
 	public void setCategories(List<category> categories) {
@@ -65,7 +63,7 @@ public class CategoryBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+    
 
 	 
 	

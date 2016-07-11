@@ -75,4 +75,9 @@ public class LoginBean {
 		session.setAttribute("id", user.getId());
 	
 	}
+	public String logout() {
+		HttpSession session = SessionUtils.getSession();
+		session.invalidate();
+		return "login";
+	}
 }

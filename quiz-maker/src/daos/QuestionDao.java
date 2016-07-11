@@ -18,6 +18,7 @@ public class QuestionDao {
 			session.beginTransaction();
 			session.save(q);
 			session.getTransaction().commit();
+
 		} finally {
 			session.close();
 		}
@@ -32,7 +33,6 @@ public class QuestionDao {
 			session.delete(q);
 			session.getTransaction().commit();
 		} finally {
-			session.flush();
 			session.close();
 		}
 	}
@@ -51,30 +51,29 @@ public class QuestionDao {
 
 	@SuppressWarnings("unchecked")
 	public List<question> getQuestion() {
-		List<question> questions = new ArrayList<question>();
+		List<question> quests = new ArrayList<question>();
 		Session session = hibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
-			questions = session.createQuery("from question").getResultList();
+			quests = session.createQuery("from question").getResultList();
 		} finally {
 			session.close();
 		}
-		return questions;
+		return quests;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<question> getQuestionRandom(int id_categ, int m) {
 
-		List<question> questions = new ArrayList<question>();
+		List<question> quest = new ArrayList<question>();
 		Session session = hibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
-			questions = session.createQuery("from question where category_id=" + id_categ + " order by rand() ")
-					.setMaxResults(m).getResultList();
+			quest = session.createQuery("from question where category_id=" + id_categ + " order by rand() ").setMaxResults(m).getResultList();
 		} finally {
 			session.close();
 		}
-		return questions;
+		return quest;
 
 	}
 

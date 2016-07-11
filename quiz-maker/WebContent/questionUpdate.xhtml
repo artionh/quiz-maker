@@ -18,48 +18,58 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		</ui:insert>
 		
 		<h:form class="forma">
-  <table >
+  <table> 
+  <tr>
+   
      <td><label >Question</label></td>
-      <td> <h:inputText id="question" required="true" value="" requiredMessage="*required" /> </td>
+      <td> <h:inputText id="question" required="true" value="#{questionBean.question.name}" requiredMessage="*required" /> </td>
        <td colspan="2"><h:message for="question" styleClass="error" /></td>
    </tr>
+       <tr>
+             <p:messages autoUpdate="true" />
+             <td><p:outputLabel for="car" value="Category: " /></td>
+             <td><p:selectOneMenu id="car" required="true" value="#{categoryBean.id}"  valueChangeListener="true" requiredMessage="*required">
+             <f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
+             </p:selectOneMenu>  </td>
+             <td colspan="2"><h:message for="question" styleClass="error" /></td>
+          </tr>
    <tr>
      <td><label >Answer</label></td>
-      <td> <h:inputText id="answer" required="true" value=""  requiredMessage="*required"  /> </td>
+      <td> <h:inputText id="answer" required="true" value="#{questionBean.question.answer.true1}"   requiredMessage="*required"  /> </td>
        <td colspan="2"><h:message for="answer" styleClass="error" /></td>
    </tr>
    
    <tr>
      <td><label >Answer</label></td>
-      <td> <h:inputText id="answer1" required="true" value="" requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
+      <td> <h:inputText id="answer1" required="true" value="#{questionBean.question.answer.false1}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
        <td colspan="2"><h:message for="answer1" styleClass="error" /></td>
    </tr>
    
    <tr>
      <td><label >Answer</label></td>
-      <td> <h:inputText id="answer2" required="true" value=""  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
+      <td> <h:inputText id="answer2" required="true" value="#{questionBean.question.answer.false2}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
        <td colspan="2"><h:message for="answer2" styleClass="error" /></td>
    </tr>
    
    <tr>
      <td><label >Answer</label></td>
-      <td> <h:inputText id="answer3" required="true" value=""  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
+      <td> <h:inputText id="answer3" required="true" value="#{questionBean.question.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
        <td colspan="2"><h:message for="answer3" styleClass="error" /></td>
    </tr>
    
-   <tr><td></td><td> 
-   <p:commandButton value="add" actionListener="#{question.update}" />  
+   <tr><td></td><td>  
+   <p:commandButton value="update" ajax="false" action="#{questionBean.update}" update="userpage"/>  
    </td></tr>
   
-
   </table>
-  
-   <p:watermark value="Your question" for="question"  />
-  <p:watermark value="Correct answer" for="answer"  />
-   <p:watermark value="wrong answer" for="answer1"  />
-    <p:watermark value="wrong answer" for="answer2"  />
-       <p:watermark value="wrong answer" for="answer3"  />
 
+  
+  <p:watermark value="Your question" for="question"  />
+  <p:watermark value="Correct answer" for="answer"  />
+  <p:watermark value="wrong answer" for="answer1"  />
+  <p:watermark value="wrong answer" for="answer2"  />
+  <p:watermark value="wrong answer" for="answer3"  />
+  
 </h:form>
 </h:body>
 

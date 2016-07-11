@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import entities.category;
@@ -65,15 +67,17 @@ public class CategoryDao {
     	
     }
 public category get(int id){
-	category c = new category();
+	    category c = new category();
         Session session = hibernateUtil.getSessionFactory().openSession();
         try {
            session.beginTransaction();
            c = (category) session.load(category.class, new Integer(id));
-            return c;
+           return c;
+           
         }  finally{
             
             session.close();
         }
+       
 	}
 }
