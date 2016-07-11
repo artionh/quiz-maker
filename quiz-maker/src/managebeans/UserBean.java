@@ -86,7 +86,7 @@ public class UserBean {
 		if((loginBean.getUser().getPassword().equals(this.password)))
 			{	loginBean.getUser().setPassword(newPassword);
 			    userDao.update(loginBean.getUser());
-			addMessage("Privacy Issue","The password was successfully changed ");
+			addMessage("Privacy Issue","The password was successfully changed");
 			}
 			else
 			
