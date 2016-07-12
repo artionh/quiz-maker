@@ -39,8 +39,6 @@ public class LoginBean {
 		
 		user=userDao.getUser(password,username);
 		
-		System.out.println(user.getUsername());
-		
 		if(user==null)
 			
 			return "login";
