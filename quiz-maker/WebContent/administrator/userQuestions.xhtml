@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <html lang="en"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://xmlns.jcp.org/jsf/html" 
-xmlns:f="http://xmlns.jcp.org/jsf/core"
-xmlns:p="http://primefaces.org/ui" 
-xmlns:ui="http://java.sun.com/jsf/facelets" > 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
-<h:head><title>hello</title>
-<h:outputStylesheet library="css" name="style.css" />
+	<h:head>
+		<title>questions user: #{userBean.user.username}</title>
+		<h:outputStylesheet library="css" name="style.css" />
 
-</h:head>
+	</h:head>
 
- <h:body >
+	<h:body >
  
- <ui:insert name="header" >
-		  <ui:include src="header.xhtml" />
+		<ui:insert name="header" >
+			<ui:include src="header.xhtml" />
 		</ui:insert>
 		 
-
-      <h:form>
-      <p:commandLink id="page" action="#{userBean.turnBack}"> 
-      <h:outputText value="Turn Back"/>
-      </p:commandLink>  
-      <br></br>
-      <p:accordionPanel >
-        <p:tab title="Questions #{userBean.user.username} ">
-        <br></br>
-        <br></br>
-        <br></br>
-          <p:dataTable  id="questionTable" var="question" value="#{userBean.user.questions}" >
-            <p:column headerText="Description">
-              <h:outputText value="#{question.name}"/>
-            </p:column> 
-            <p:column headerText="Category">
-              <h:outputText value="#{question.category.name}"/>
-           </p:column> 
-           <p:column headerText="Date">
-              <h:outputText value="#{question.date}"/>
-           </p:column>  
-            <p:column headerText="Action" >       	
-        <p:commandButton value="View Question" icon="ui-icon-extlink" action="#{questionBean.view(question.id)}" >
-        <p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" />
-        </p:commandButton>
-            </p:column>   
-          </p:dataTable>
-        </p:tab>
-      </p:accordionPanel>
-      </h:form>
-</h:body>
+		<h:form>
+			<p:commandLink id="page" action="#{userBean.turnBack}"> 
+			<h:outputText value="Turn Back"/>
+			</p:commandLink>  
+			<br></br>
+			<br></br>
+			<!-- Listimi i pyeteve te userit te selektuar -->
+			
+			<p:accordionPanel >
+				<p:tab title="Questions #{userBean.user.username} ">
+					<br></br>
+					<br></br>
+					<p:dataTable  id="questionTable" var="question" value="#{userBean.user.questions}" >
+						<p:column headerText="Description">
+							<h:outputText value="#{question.name}"/>
+						</p:column> 
+						<p:column headerText="Category">
+							<h:outputText value="#{question.category.name}"/>
+						</p:column> 
+						<p:column headerText="Date">
+							<h:outputText value="#{question.date}"/>
+						</p:column>  
+						<p:column headerText="Action" >       	
+							<p:commandButton value="View Question" icon="ui-icon-extlink" action="#{questionBean.view(question.id)}" >
+								<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" />
+							</p:commandButton>
+						</p:column>   
+					</p:dataTable>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+	</h:body>
 
 </html>

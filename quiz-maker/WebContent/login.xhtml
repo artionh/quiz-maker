@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html lang="en"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://xmlns.jcp.org/jsf/html" 
-xmlns:f="http://xmlns.jcp.org/jsf/core"
-xmlns:p="http://primefaces.org/ui" 
-xmlns:ui="http://java.sun.com/jsf/facelets" > 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
- <h:head><title>Login</title>
- <style>
-       .error{color:red}
-   
-    </style>
-    <h:outputStylesheet library="css" name="style.css" />
- </h:head>
+	<h:head>
+		<title>Login</title>
+		<style> .error{color:red}</style>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
  
- <h:body>
+	<h:body>
  
-<div style="padding-top:10%">
+		<div style="padding-top:10%">
+			<p:fieldset legend="Enter your information" style="margin-left:30%;margin-right:30%;" >
+				<h:form>
+					<table>
+						<tr>
+							 <td><LABEL>Username</LABEL></td>
+							 <td><h:inputText id="username" required="true" value="#{loginBean.username}" requiredMessage="*required" /></td>
+							 <td ><h:message for="username" styleClass="error" /></td>
+						</tr>
+						<tr>
+							<tr>
+								<td><label></label></td></tr>
+							<tr>
+								<td><label></label></td></tr>
+								<td><LABEL>Password</LABEL></td>  
+								<td><p:password id="password" value="#{loginBeanBean.newPassword}" required="true" requiredMessage="*required"  /></td>
+								<td ><h:message for="password" styleClass="error" /></td>
+							</tr>
+							<tr>
+								<td><label></label></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><h:commandButton action="#{loginBean.login}" value= "Login"  /> </td>
+							</tr>
+						</table>
+						<br></br>
+						<p:watermark value="Enter your email" for="username" />
+						<p:watermark value="Enter your password" for="password" />
+					</h:form>
+				<h:outputText value="Not a member yet ?" style="margin-left:25%;" /><h:link value="Click here" outcome="singup" />
+			</p:fieldset>
+		</div>
  
- <p:fieldset legend="Enter your information" style="margin-left:30%;margin-right:30%;" >
-  <h:form>
-   <table>
-    
-     <tr>
-     <td><LABEL>Username</LABEL></td>
-     <td><h:inputText id="username" required="true" value="#{loginBean.username}" requiredMessage="*required" /></td>
-     <td ><h:message for="username" styleClass="error" /></td>
-     </tr>
-     <tr>
-     <tr><td><label></label></td></tr>
-      <tr><td><label></label></td></tr>
-     <td><LABEL>Password</LABEL></td>  
-     <td><h:inputText id="password" required="true" value="#{loginBean.password}" requiredMessage="*required" /></td>
-     <td ><h:message for="password" styleClass="error" /></td>
-     </tr>
-      <tr><td><label></label></td></tr>
-      
-     <tr><td></td><td><h:commandButton action="#{loginBean.login}" value= "Login" /> </td></tr>
-    
-   </table>
-   <br></br>
-    <p:watermark value="Enter your email" for="username" />
-  <p:watermark value="Enter your password" for="password" />
-  </h:form>
-   <h:outputText value="Not a member yet ?" style="margin-left:25%;" /><h:link value="Click here" outcome="singup" />
- </p:fieldset>
- 
-</div>
- 
- </h:body>
+	</h:body>
 
-</html>
+</html>	

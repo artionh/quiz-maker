@@ -32,9 +32,9 @@ public class CategoryBean {
 	
     public void add(){
     	categoryDao.add(category);
-    	category = new category();
     	categories.add(category);
-    	 categories  = categoryDao.getCategories();
+    	category = new category();
+    	categories  = categoryDao.getCategories();
     	
     }
 	public void setCategories(List<category> categories) {
@@ -83,6 +83,7 @@ public class CategoryBean {
     	categories.remove(categoryDao.get(category));	 
     	categoryDao.delete(category);
     	categories  = categoryDao.getCategories();
+    	this.category = new category();
     }
 
 	 public String view(int category){

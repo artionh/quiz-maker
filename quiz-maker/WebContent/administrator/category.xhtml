@@ -6,68 +6,68 @@ xmlns:f="http://xmlns.jcp.org/jsf/core"
 xmlns:p="http://primefaces.org/ui" 
 xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
-<h:head><title>Categories</title>
-<style>
-       .error{color:red}
-   
-    </style>
-    <h:outputStylesheet library="css" name="style.css" />
-</h:head>
+	<h:head>
+		<title>Categories</title>
+		<style>
+			.error{color:red}
+		</style>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
 
-<h:body>
+	<h:body>
 
-<ui:insert name="header" >
-		  <ui:include src="header.xhtml" />
+		<ui:insert name="header" >
+			<ui:include src="header.xhtml" />
 		</ui:insert>
+		<!-- Shtimi i nje kategorie
+		te re -->
+		<h:form>
 		
- <h:form class="forma">
-  <table >
+			<table >
+				<tr>
+					<td><label >Name</label></td>
+					<td> <h:inputText id="name" value="#{categoryBean.category.name}" required="true" requiredMessage="*required" /> </td>
+					<td colspan="2"><h:message for="name" styleClass="error" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><h:commandButton actionListener="#{categoryBean.add}" value="Add" process="@this @form" update="j_idt35:j_idt36:categoryTable @form"/></td>
+				</tr>    
+			</table>  
   
-  <tr>
-     <td><label >Name</label></td>
-      <td> <h:inputText id="name" value="#{categoryBean.category.name}" required="true" requiredMessage="*required" /> </td>
-       <td colspan="2"><h:message for="name" styleClass="error" /></td>
-   </tr>
-   <tr><td></td><td><h:commandButton action="#{categoryBean.add}" value="Add" process="@this @form" update="j_idt35:j_idt36:categoryTable @form"/></td></tr>
-  
-       
-  </table>  
-  
-   <p:watermark value="new name" for="name"  />
- 
- 
+			<p:watermark value="new name" for="name"  />
+			
+		</h:form>
 
-</h:form>
+		<br></br>
+        <!-- Listimi i te gjitha kategorive dhe afishimi i veprimeve update delete per kategorite -->
+		<h:form>
+		
+			<p:accordionPanel >
+				<p:tab title="Categories" style="background:red">
+					<p:dataTable id="categoryTable" var="category" value="#{categoryBean.categories}">
+						<p:column headerText="Description">
+							<h:outputText value="#{category.name}"/>
+						</p:column>  
+						<p:column headerText="Action" >    
+							<p:commandLink value= "Update" ajax="false" process="@this" action="#{categoryBean.select(category.id)}" /> 
+							<p:growl id="message" showDetail="true" > </p:growl>
+							| |
+							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{categoryBean.delete(category.id)}" >
+								<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
+							</p:commandLink>
+							<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">
+								<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>  
+						</p:column>   
+					</p:dataTable>
+				</p:tab>
+			</p:accordionPanel>
+			
+			
+		</h:form>
 
-<br></br>
-       
-<h:form>
-    
-      <p:accordionPanel >
-        <p:tab title="Categories" style="background:red">
-          <p:dataTable id="categoryTable" var="category" value="#{categoryBean.categories}">
-            <p:column headerText="Description">
-              <h:outputText value="#{category.name}"/>
-            </p:column>  
-            <p:column headerText="Action" >    
-            	<p:commandLink value= "Update" ajax="false" process="@this" action="#{categoryBean.select(category.id)}" /> 
-            	<p:growl id="message" showDetail="true" > </p:growl>
-            	| |
-            	<p:commandLink value= "Delete" ajax="false" process="@this" action="#{categoryBean.delete(category.id)}" >
-            	<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
-            	</p:commandLink>
-                 <p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">
-                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                  <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                  </p:confirmDialog>  
-          
-            </p:column>   
-           
-          </p:dataTable>
-        </p:tab>
-      </p:accordionPanel>
-</h:form>
-
-</h:body>
+	</h:body>
 
 </html>

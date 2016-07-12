@@ -6,52 +6,49 @@ xmlns:f="http://xmlns.jcp.org/jsf/core"
 xmlns:p="http://primefaces.org/ui" 
 xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
-<h:head><title>hello</title>
-<h:outputStylesheet library="css" name="style.css" />
+	<h:head>
+		<title>category #{categoryBean.category.name}</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
 
-</h:head>
-
- <h:body >
+	<h:body >
  
- <ui:insert name="header" >
-		  <ui:include src="header.xhtml" />
+		<ui:insert name="header" >
+			<ui:include src="header.xhtml" />
 		</ui:insert>
 		 
+		<h:form>
+		
+			<p:commandLink id="page" action="#{categoryBean.turnBack}"> 
+			<h:outputText value="Turn Back"/>
+			</p:commandLink> 
+			
+			<br></br>
+			<br></br>
+			<!-- Listimi i te gjitha pyetjeve per kategorine e selektuar nga administratori -->
+			<p:accordionPanel >
+				<p:tab title="Questions #{categoryBean.category.name}">
+					<p:dataTable  id="questionTable" var="question" value="#{categoryBean.category.questions}" >
+						<p:column headerText="Description">
+							<h:outputText value="#{question.name}"/>
+						</p:column> 
+						<p:column headerText="Category">
+							<h:outputText value="#{question.category.name}"/>
+						</p:column> 
+						<p:column headerText="Description">
+							<h:outputText value="#{question.useri.username}"/>
+						</p:column> 
+						<p:column headerText="Action" >       	
+							<p:commandButton value="View Questions" icon="ui-icon-extlink" action="#{categoryBean.view(category.id)}" >
+								<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" />
+							</p:commandButton>
+						</p:column>   
+					</p:dataTable>
+				</p:tab>
+			</p:accordionPanel>
+			
+		</h:form>
 
-      <h:form>
-      <p:commandLink id="page" action="#{categoryBean.turnBack}"> 
-      <h:outputText value="Turn Back"/>
-      </p:commandLink>  
-      <br></br>
-      <p:accordionPanel >
-        <p:tab title="Questions #{categoryBean.category.name}">
-        <br></br>
-        <br></br>
-        <br></br>
-          <p:dataTable  id="questionTable" var="question" value="#{categoryBean.category.questions}" >
-            <p:column headerText="Description">
-              <h:outputText value="#{question.name}"/>
-            </p:column> 
-            <p:column headerText="Category">
-              <h:outputText value="#{question.category.name}"/>
-            </p:column> 
-            <p:column headerText="Description">
-              <h:outputText value="#{question.useri.username}"/>
-            </p:column> 
-              
-            <p:column headerText="Action" >       	
-        <p:commandButton value="View Questions" icon="ui-icon-extlink" action="#{categoryBean.view(category.id)}" >
-        <p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" />
-        </p:commandButton>
-            </p:column>   
-          </p:dataTable>
-        </p:tab>
-      
-      </p:accordionPanel>
- </h:form>
- 
- 
  </h:body>
 
 </html>
-

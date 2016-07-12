@@ -31,7 +31,7 @@ public class LoginBean {
 	public String login() {
 		user=userDao.getUser(password,username);
 		if(user==null)
-			return "admin";
+			return null;
 		else{
 			setData(user);
 		return "administrator/adminpage";
