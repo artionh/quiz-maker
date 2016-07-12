@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets" > 
+
+<h:head><title></title>
+<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+ <h:body >
+ 
+ <ui:insert name="header" >
+		  <ui:include src="header.xhtml" />
+		</ui:insert>
+			<h:form>
+		<p:panelGrid  columns="2" cellpadding="5">
+		<h:outputLabel for="name" value="Question Name"></h:outputLabel>
+		
+		<h:outputLabel for="name" value="#{questionBean.question.name}"></h:outputLabel>
+		<h:outputLabel for="name" value="Question Category"></h:outputLabel>
+		
+		<h:outputLabel for="name" value="#{questionBean.question.category.name}"></h:outputLabel>
+		<h:outputLabel for="name" value="Question User"></h:outputLabel>
+		
+		<h:outputLabel for="name" value="#{questionBean.question.useri.username}"></h:outputLabel>
+		<h:outputLabel for="name" value="Question Date"></h:outputLabel>
+		  
+		<h:outputLabel for="name" value="#{questionBean.question.date}"></h:outputLabel>
+		<h:outputLabel for="name" value="Question True answer"></h:outputLabel>
+		  
+		<h:outputLabel for="name" value="#{questionBean.question.answer.true1}"></h:outputLabel>
+		</p:panelGrid>
+	
+		 <p:commandLink id="page" action="#{questionBean.turnBack}"> 
+      <h:outputText value="Turn Back"/>
+      </p:commandLink> 
+      </h:form>
+</h:body>
+</html>

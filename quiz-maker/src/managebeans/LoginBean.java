@@ -34,7 +34,7 @@ public class LoginBean {
 			return "admin";
 		else{
 			setData(user);
-		return "adminpage";
+		return "administrator/adminpage";
 		}
 	}
 

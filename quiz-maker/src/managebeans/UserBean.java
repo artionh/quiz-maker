@@ -114,6 +114,16 @@ public class UserBean {
 		userDao.delete(user); 
 		users = userDao.getUsers();
 	}
+	public String view(int user){
+		this.user = userDao.get(user);  
+		return "userQuestions";
+		
+	}
+	public String turnBack(){
+		user = new entities.user();
+		return "adminpage";
+	}
+	
 	
     
 }

@@ -44,6 +44,7 @@ public class QuestionBean {
 		question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
 		question.setUseri(loginBean.getUser());
 		answer.setQuestion(question);
+		questionDao.add(question);
 		questions.add(question);
 		allQuestions.add(question);
 		question = new question();
@@ -179,7 +180,15 @@ public class QuestionBean {
 		this.allQuestions = allQuestions;
 	}
 
-	
-	
+	public String view(int question){
+		this.question = questionDao.get(question);
+		System.out.println(this.question.getName());
+		return "questionView";
+		
+	}
+	public String turnBack(){
+		question = new question();
+		return "adminpage";
+	}
 	
 }

@@ -85,6 +85,15 @@ public class CategoryBean {
     	categories  = categoryDao.getCategories();
     }
 
-	 
+	 public String view(int category){
+		 this.category = categoryDao.get(category);
+		 return "categoryQuestions";
+		 
+	 }
+	 public String turnBack(){
+		 category = new category();
+		return "adminpage";
+		 
+	 }
 	
 }
