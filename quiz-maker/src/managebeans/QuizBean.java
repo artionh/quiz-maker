@@ -11,12 +11,15 @@ import javax.faces.bean.SessionScoped;
 import daos.QuestionDao;
 
 @ManagedBean(name = "quizBean")
+
 @SessionScoped
+
 public class QuizBean {
 	
 
 
 	private List<entities.question> questions;
+	
 	@ManagedProperty(value = "#{questionDao}")
 	private QuestionDao questionDao;
 	
