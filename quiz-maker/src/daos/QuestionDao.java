@@ -56,6 +56,20 @@ public class QuestionDao {
 		try {
 			session.beginTransaction();
 			quests = session.createQuery("from question").getResultList();
+		
+		} finally {
+			session.close();
+		}
+		return quests;
+	}
+	@SuppressWarnings("unchecked")
+	public List<question> getQuestionUser(int id) {
+		List<question> quests = new ArrayList<question>();
+		Session session = hibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			quests = session.createQuery("from question where user_id="+id).getResultList();
+		
 		} finally {
 			session.close();
 		}

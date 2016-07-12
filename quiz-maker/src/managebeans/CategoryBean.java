@@ -17,9 +17,9 @@ public class CategoryBean {
 	
 	private List<category> categories;
 	@ManagedProperty(value = "#{categoryDao}")
-	private CategoryDao categoryDao;
-	private String name;		
+	private CategoryDao categoryDao;		
 	private int id;
+	private category category = new category();
 	
 	@PostConstruct
 	public void init() {
@@ -28,8 +28,15 @@ public class CategoryBean {
 	public List<category> getCategories() {
 		
 			return categories;
-	}
-
+	} 
+	
+    public void add(){
+    	categoryDao.add(category);
+    	category = new category();
+    	categories.add(category);
+    	 categories  = categoryDao.getCategories();
+    	
+    }
 	public void setCategories(List<category> categories) {
 		this.categories = categories;
 	}
@@ -54,16 +61,29 @@ public class CategoryBean {
 
 	public void setId(int id) {
 		this.id = id;
-	} 
-	
-	public String getName() {
-		return name;
-	} 
-	
-	public void setName(String name) {
-		this.name = name;
 	}
-    
+	public category getCategory() {
+		return category;
+	}
+	public void setCategory(category category) {
+		this.category = category;
+	} 
+	public String select(int category){
+		this.category = categoryDao.get(category);
+		return "categoryUpdate";
+	}
+	public String update(){
+		categoryDao.update(category);
+		categories = categoryDao.getCategories();
+		category = new category();
+		return "category";
+	}
+  
+    public void delete(int category){
+    	categories.remove(categoryDao.get(category));	 
+    	categoryDao.delete(category);
+    	categories  = categoryDao.getCategories();
+    }
 
 	 
 	

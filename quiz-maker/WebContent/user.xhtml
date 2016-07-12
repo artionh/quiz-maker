@@ -25,17 +25,17 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
   
   <tr>
      <td><label >Add Username</label></td>
-      <td> <h:inputText id="username" value="#{user.username}" required="true" requiredMessage="*required" /> </td>
+      <td> <h:inputText id="username" value="#{userBean.user.username}" required="true" requiredMessage="*required" /> </td>
        <td colspan="2"><h:message for="username" styleClass="error" /></td>
    </tr>
    
    <tr>
      <td><label >Add Password</label></td>
-      <td> <h:inputText id="password" required="true" value="{#user.password}" requiredMessage="*required"   /> </td>
+      <td> <h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   /> </td>
        <td colspan="2"><h:message for="password" styleClass="error" /></td>
    </tr>
    
-   <tr><td></td><td><h:commandButton action="#{user.add}" value="Submit"  /> </td></tr>
+   <tr><td></td><td><h:commandButton action="#{userBean.add}" value="Add" process="@this @form" update="j_idt40:j_idt41:userTable forma" /> </td></tr>
   
 
   </table>
@@ -47,29 +47,29 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 </h:form>
 
 <br></br>
-
+     
 <h:form>
-
+    
       <p:accordionPanel >
         <p:tab title="Users" style="background:red">
-          <p:dataTable var="question" value="#{questionBean.qu}">
+          <p:dataTable id="userTable" var="user" value="#{userBean.users}">
             <p:column headerText="Description">
-              <h:outputText value="#{question.name}"/>
+              <h:outputText value="#{user.username}"/>
+            </p:column>  
+            <p:column headerText="Action" >    
+            	<p:commandLink value= "Update" ajax="false" process="@this" action="#{userBean.select(user.id)}" /> 
+            	<p:growl id="message" showDetail="true" > </p:growl>
+            	| |
+            	<p:commandLink value= "Delete" ajax="false" process="@this" action="#{userBean.delete(user.id)}" >
+            	<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
+            	</p:commandLink>
+                 <p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">
+                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                  <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                  </p:confirmDialog>
+            
+          
             </p:column>   
-            <p:column headerText="Category" >
-            <h:outputText value="#{question.category}" />
-            </p:column> 
-        
-            
-            <p:column headerText="Action">
-            <p:growl id="growl" showDetail="true" />
- 
-      <p:commandButton value="View" icon="ui-icon-extlink" actionListener="#{dfViewQuestion.viewQuestion}">
-        <p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" update="growl" />
-        </p:commandButton>
-            <h:outputLink value="ref.xhtml">Edit</h:outputLink>|<h:outputLink value="ref.xhtml">Delete</h:outputLink>
-            </p:column>
-            
           
             
             

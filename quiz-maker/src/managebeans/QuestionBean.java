@@ -1,7 +1,5 @@
 package managebeans;
-
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -31,40 +29,40 @@ public class QuestionBean {
 	private int id;
 	private answer answer = new answer();
 	private question question = new question();
+	private List<question> allQuestions;
 
 
 	@PostConstruct
 	public void init() {
-		if(loginBean.getUser().getRoli().getId()==1)
-	      questions = questionDao.getQuestion();
-		else
-			questions = loginBean.getUser().getQuestions();	
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+		allQuestions = questionDao.getQuestion();
+			
 	}
 
 	public void add(){
 		question.setName(question.getName());
 		question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
 		question.setUseri(loginBean.getUser());
-		questionDao.add(question);
 		answer.setQuestion(question);
-		answerDao.add(answer);
+		questions.add(question);
+		allQuestions.add(question);
 		question = new question();
 		answer = new answer();
 		categoryBean.setId(0);
-		if(loginBean.getUser().getRoli().getId()==1)
-		      questions = questionDao.getQuestion();
-			else
-				questions = loginBean.getUser().getQuestions();		
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+		allQuestions = questionDao.getQuestion();	
 	}
+	
 	public void delete(int question) {
-		questions.remove(questionDao.get(question));
+		
 		questionDao.delete(question);
-		if(loginBean.getUser().getRoli().getId()==1)
-		      questions = questionDao.getQuestion();
-			else
-				questions = loginBean.getUser().getQuestions();	
+		questions.remove(questionDao.get(question));
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());		
+		allQuestions = questionDao.getQuestion();	
+		
 	}
 	public List<question> getQuestions() {
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());
       	return questions;
 	}
 	
@@ -132,7 +130,13 @@ public class QuestionBean {
 		System.out.println(cs.get(0).getName());
 		categoryBean.setCategories(cs);
 		categoryBean.setId(this.question.getCategori().getId());
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+		allQuestions = questionDao.getQuestion();
+		if(loginBean.getUser().getRoli().getId()==1)
+			return "questionUpdateAdmin";
+			else
 		return "questionUpdate";
+		
 	}
 
 	public question getQuestion() {
@@ -153,16 +157,29 @@ public class QuestionBean {
 	
 	public String update(){
 	   question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
-		questionDao.update(question);
-		if(loginBean.getUser().getRoli().getId()==1)
-		      questions = questionDao.getQuestion();
-			else
-				questions = loginBean.getUser().getQuestions();	
+		questionDao.update(question);	
 		question =  new question();
 		categoryBean.setId(0);
-		
+		questions.clear();
+		allQuestions.clear();
+		questions = loginBean.getUser().getQuestions();	
+		allQuestions = questionDao.getQuestion();
+		if(loginBean.getUser().getRoli().getId()==1)
+			return "question";
+			else
 		return "userpage";
 	}
+
+	public List<question> getAllQuestions() {
+		allQuestions = questionDao.getQuestion();
+		return allQuestions;
+	}
+
+	public void setAllQuestions(List<question> allQuestions) {
+		this.allQuestions = allQuestions;
+	}
+
+	
 	
 	
 }

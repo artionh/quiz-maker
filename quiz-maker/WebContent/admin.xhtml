@@ -19,7 +19,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		
 
 <h:form>
-
+<!-- paneli i pyetjeve  --> 
       <p:accordionPanel >
         <p:tab title="Questions">
           <p:dataTable var="question">
@@ -47,12 +47,12 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
         
         
         <p:tab title="Users" style="background:red">
-          <p:dataTable var="question" value="#{questionBean.qu}">
+          <p:dataTable var="question" value="">
             <p:column headerText="Description">
-              <h:outputText value="#{question.name}"/>
+              <h:outputText value=""/>
             </p:column>   
             <p:column headerText="Category" >
-            <h:outputText value="#{question.category}" />
+            <h:outputText value="" />
             </p:column> 
             
             

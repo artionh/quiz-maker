@@ -8,9 +8,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 <h:head><title>hello</title>
 <h:outputStylesheet library="css" name="style.css" />
-
 </h:head>
-
  <h:body >
  
  <ui:insert name="header" >
@@ -58,7 +56,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
        <td colspan="2"><h:message for="answer3" styleClass="error" /></td>
    </tr>
   
-   <tr><td></td><td> <p:commandButton value="add" actionListener="#{questionBean.add}" process="@this @form" update="j_idt55:j_idt56:questionTable @form"/>    
+   <tr><td></td><td> <p:commandButton value="add" actionListener="#{questionBean.add}" process="@this @form" update="j_idt64:j_idt65 @form"/>    
   
     </td></tr>
   
@@ -112,3 +110,5 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 </h:body>
 
 </html>				
+
+

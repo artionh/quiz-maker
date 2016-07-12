@@ -6,13 +6,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import daos.UserDao;
 
 @ManagedBean(name = "userBean")
-@ViewScoped
+@SessionScoped
 public class UserBean {
 	private entities.user user = new entities.user();
 	@ManagedProperty(value = "#{userDao}")
@@ -34,18 +34,16 @@ public class UserBean {
 	public void setUser(entities.user user) {
 		this.user = user;
 	}
-	public String add(){
+	public void add(){
+		user.setRoli(userDao.setRoli(2));
 		userDao.add(user);
-	return null;
+		user = new entities.user();
 	}
 	public String update(){
 		userDao.update(user);
-	return null;	
+		user = new entities.user();
+	return "user";	
 	}
-    public String delete(){
-    	userDao.delete(user.getId());
-    return null;	
-    }
 
 	public List<entities.user> getUsers() {
 		users = userDao.getUsers();
@@ -106,6 +104,15 @@ public class UserBean {
 
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
+	}
+	public String select (int user){
+		this.user = userDao.get(user);
+		return "userUpdate";
+	}
+	public void delete(int user) {
+		users.remove(userDao.get(user));
+		userDao.delete(user); 
+		users = userDao.getUsers();
 	}
 	
     

@@ -16,7 +16,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 <h:outputText value="#{q.name}" /> <br></br>
 
-<p:selectOneRadio value="#{q.userSelections}"  >
+<p:selectOneRadio value="#{quizBean.userSelection}"  >
  
   
 <f:selectItem itemLabel="#{q.answer.true1}" itemValue="#{q.answer.true1}"  /><br></br> 
@@ -32,8 +32,8 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 <p:separator />
 
 </ui:repeat>
-
-<p:commandButton value="submit" action="#{quizBean.calculateSelections()}" />
+ 
+<p:commandButton value="submit" action="#{quizBean.calculateSelections}" />
 </form>
 </p:fieldset>
 

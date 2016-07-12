@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import entities.category;
@@ -22,7 +20,6 @@ public class CategoryDao {
 	        session.save(c);
 	        session.getTransaction().commit();
 	    } finally {
-	        session.flush();
 	        session.close();
 	    }
 	}
@@ -34,12 +31,10 @@ public class CategoryDao {
            category c = (category) session.load(category.class, new Integer(id));
             session.delete(c);
             session.getTransaction().commit();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        } finally {
-            session.flush();
-            session.close();
         }
+           finally{
+            session.close();
+           }
 	}
 	public void update(category c){
         Session session = hibernateUtil.getSessionFactory().openSession();
@@ -48,7 +43,7 @@ public class CategoryDao {
             session.update(c);
             session.getTransaction().commit();
         } finally {
-        	 session.flush();
+        	
              session.close();
         }
 	}

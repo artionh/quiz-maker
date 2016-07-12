@@ -11,26 +11,34 @@ xmlns:p="http://primefaces.org/ui" >
 </h:head>
 
  <h:body >
+ <h:form>
  <div id="divi">
 <p:tabMenu  activeIndex="#{param.i}"  >
-
- <p:menuitem value="Dashboard" outcome="index" icon="ui-icon-home">
+  
+ <p:menuitem value="Dashboard" outcome="adminpage" icon="ui-icon-home">
   <f:param name="i" value="0" />
  </p:menuitem>
-  <p:menuitem value="Questions" outcome="quest" icon="ui-icon-extlink" >
+  <p:menuitem value="Questions" outcome="question" icon="ui-icon-extlink" >
+  <f:param name="i" value="1" />
+ </p:menuitem>
+ <p:menuitem value="Categories" outcome="category" icon="ui-icon-extlink" >
   <f:param name="i" value="1" />
  </p:menuitem>
   <p:menuitem value="Users" outcome="user" icon="ui-icon-person">
   <f:param name="i" value="2" />
  </p:menuitem>
-  <p:menuitem value="Log Out" outcome="login" icon="ui-icon-home">
+ <p:menuitem value="Setting" outcome="settingAdmin" icon="ui-icon-person">
+  <f:param name="i" value="2" />
+ </p:menuitem>
+ 
+  <p:menuitem value="Log Out" action="#{loginBean.logout}" icon="ui-icon-home">
   <f:param name="i" value="3" />
  </p:menuitem>
 
 </p:tabMenu>
 
  </div> 
-
+</h:form>
 </h:body>
 
 </html>

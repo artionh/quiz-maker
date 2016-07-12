@@ -2,23 +2,24 @@ package managebeans;
 
 
 
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
- 
+import javax.faces.bean.SessionScoped; 
 import javax.servlet.http.HttpSession;
 
 import daos.SessionUtils;
 import daos.UserDao;
 import entities.user;
-
+   
 @ManagedBean(name="loginBean")
-@SessionScoped
+@SessionScoped 
 public class LoginBean {
+	
 	private String username;
 	private String password;
-	private user user;
+	private user user = new user();
 
 	@ManagedProperty(value="#{userDao}")
 	UserDao userDao;
@@ -30,10 +31,10 @@ public class LoginBean {
 	public String login() {
 		user=userDao.getUser(password,username);
 		if(user==null)
-			return "userpage";
+			return "admin";
 		else{
 			setData(user);
-		return "userpage";
+		return "adminpage";
 		}
 	}
 
@@ -51,7 +52,7 @@ public class LoginBean {
 
 	public void setUser(user user) {
 		this.user = user;
-	}
+	}  
 
 	public String getUsername() {
 		return username;
@@ -80,4 +81,5 @@ public class LoginBean {
 		session.invalidate();
 		return "login";
 	}
+	
 }

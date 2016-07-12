@@ -15,11 +15,10 @@ public class UserDao {
 	public void add(user u){
         Session session = hibernateUtil.getSessionFactory().openSession();
         try {
-        	 session.beginTransaction();
+        	session.beginTransaction();
 	        session.save(u);
 	        session.getTransaction().commit();
 	    } finally {
-	    	 session.flush();
 	         session.close();
 	    }
 	}
@@ -29,6 +28,7 @@ public class UserDao {
             session.beginTransaction();
             user u = session.load(user.class, new Integer(id));
             session.delete(u);
+            session.getTransaction().commit();
         } finally {
             session.close();
         }}
@@ -40,7 +40,6 @@ public class UserDao {
                 session.update(u);
                 session.getTransaction().commit();}
             finally {
-            	 session.flush();
                  session.close();
             }
     		
