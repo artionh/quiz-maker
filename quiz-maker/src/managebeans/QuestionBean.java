@@ -15,7 +15,7 @@ import entities.question;
 
 @SessionScoped
 
-public class QuestionBean {
+public class QuestionBean implements actions  {
 
 	@ManagedProperty(value = "#{questionDao}")
 	private QuestionDao questionDao;
@@ -52,46 +52,6 @@ public class QuestionBean {
 			
 	}
 
-	public void add(){
-		
-		question.setName(question.getName());
-		
-		question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
-		
-		question.setUseri(loginBean.getUser());
-		
-		answer.setQuestion(question);
-		
-		questionDao.add(question);
-		
-		questions.add(question);
-		
-		allQuestions.add(question);
-		
-		question = new question();
-		
-		answer = new answer();
-		
-		categoryBean.setId(0);
-		
-		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
-		
-		allQuestions = questionDao.getQuestion();	
-		
-	}
-	
-	public void delete(int question) {
-		
-		
-		questionDao.delete(question);
-		
-		questions.remove(questionDao.get(question));
-		
-		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
-		
-		allQuestions = questionDao.getQuestion();	
-		
-	}
 	public List<question> getQuestions() {
 		
 		questions = questionDao.getQuestionUser(loginBean.getUser().getId());
@@ -149,43 +109,7 @@ public class QuestionBean {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String select(int question) {
-		
-		this.question = questionDao.get(question);
-		
-		List<category> cs = categoryBean.getCategories();
-		
-		for(int i=0; i<cs.size();i++){
-			
-			if(cs.get(i).getId()==this.question.getCategory().getId()){
-				
-				category c = cs.get(i);
-				
-				cs.set(i,  categoryBean.getCategories().get(0));
-				
-				cs.set(0, c);
-			}	
-		}
-		System.out.println(cs.get(0).getName());
-		
-		categoryBean.setCategories(cs);
-		
-		categoryBean.setId(this.question.getCategori().getId());
-		
-		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
-		
-		allQuestions = questionDao.getQuestion();
-		
-		if(loginBean.getUser().getRoli().getId()==1)
-			
-			return "questionUpdateAdmin";
-		
-			else
-				
-		return "questionUpdate";
-		
-	}
-
+	
 	public question getQuestion() {
 		return question;
 	}
@@ -202,44 +126,122 @@ public class QuestionBean {
 		this.question = question;
 	}
 	
-	public String update(){
+	
+	public void setAllQuestions(List<question> allQuestions) {
 		
-	   question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
-	   
-		questionDao.update(question);
-		
-		question =  new question();
-		
-		categoryBean.setId(0);
-		
-		questions.clear();
-		
-		allQuestions.clear();
-		
-		questions = loginBean.getUser().getQuestions();	
-		
-		allQuestions = questionDao.getQuestion();
-		
-		if(loginBean.getUser().getRoli().getId()==1)
-			
-			return "question";
-		
-			else
-				
-		return "userpage";
+		this.allQuestions = allQuestions;
 	}
-
+	
 	public List<question> getAllQuestions() {
 		
 		allQuestions = questionDao.getQuestion();
 		
 		return allQuestions;
 	}
-
-	public void setAllQuestions(List<question> allQuestions) {
+	
+    public void add(){
 		
-		this.allQuestions = allQuestions;
+		question.setName(question.getName());
+		
+		question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+		
+		question.setUseri(loginBean.getUser());
+		
+		answer.setQuestion(question);
+		
+		questionDao.add(question);
+		
+		questions.add(question);
+		
+		allQuestions.add(question);
+		
+		question = new question();
+		
+		answer = new answer();
+		
+		categoryBean.setId(0);
+		
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+		
+		allQuestions = questionDao.getQuestion();	
+		
 	}
+	
+	public void delete(int question) {
+		
+		
+		questionDao.delete(question);
+		
+		questions.remove(questionDao.get(question));
+		
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+		
+		allQuestions = questionDao.getQuestion();	
+		
+	}
+	public String update(){
+		
+		   question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+		   
+			questionDao.update(question);
+			
+			question =  new question();
+			
+			categoryBean.setId(0);
+			
+			questions.clear();
+			
+			allQuestions.clear();
+			
+			questions = loginBean.getUser().getQuestions();	
+			
+			allQuestions = questionDao.getQuestion();
+			
+			if(loginBean.getUser().getRoli().getId()==1)
+				
+				return "question";
+			
+				else
+					
+			return "userpage";
+		}
+
+	 public String select(int question) {
+			
+			this.question = questionDao.get(question);
+			
+			List<category> cs = categoryBean.getCategories();
+			
+			for(int i=0; i<cs.size();i++){
+				
+				if(cs.get(i).getId()==this.question.getCategory().getId()){
+					
+					category c = cs.get(i);
+					
+					cs.set(i,  categoryBean.getCategories().get(0));
+					
+					cs.set(0, c);
+				}	
+			}
+			System.out.println(cs.get(0).getName());
+			
+			categoryBean.setCategories(cs);
+			
+			categoryBean.setId(this.question.getCategori().getId());
+			
+			questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+			
+			allQuestions = questionDao.getQuestion();
+			
+			if(loginBean.getUser().getRoli().getId()==1)
+				
+				return "questionUpdateAdmin";
+			
+				else
+					
+			return "questionUpdate";
+			
+		}
 
 	public String view(int question){
 		

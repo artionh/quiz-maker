@@ -15,7 +15,7 @@ import entities.category;
 
 @SessionScoped
 
-public class CategoryBean {
+public class CategoryBean implements actions {
 	
 	
 	private List<category> categories;
@@ -42,18 +42,6 @@ public class CategoryBean {
 			return categories;
 	} 
 	
-    public void add(){
-    	
-    	categoryDao.add(category);
-    	
-    	categories.add(category);
-    	
-    	category = new category();
-    	
-    	categories  = categoryDao.getCategories();
-    	
-    	
-    }
     
 	public void setCategories(List<category> categories) {
 		this.categories = categories;
@@ -95,15 +83,31 @@ public class CategoryBean {
 		this.category = category;
 	} 
 	
-	public String select(int category){
-		
-		this.category = categoryDao.get(category);
-		
-		return "categoryUpdate";
-		
-	}
-	
-	public String update(){
+	 public void add(){
+	    	
+	    	categoryDao.add(category);
+	    	
+	    	categories.add(category);
+	    	
+	    	category = new category();
+	    	
+	    	categories  = categoryDao.getCategories();
+	    	
+	    	
+	    }
+	 
+	 public void delete(int category){
+	    	
+	    	categories.remove(categoryDao.get(category));	
+	    	
+	    	categoryDao.delete(category);
+	    	
+	    	categories  = categoryDao.getCategories();
+	    	
+	    	this.category = new category();
+	    }
+	 
+	 public String update(){
 		
 		categoryDao.update(category);
 		
@@ -114,18 +118,15 @@ public class CategoryBean {
 		return "category";
 	}
   
-    public void delete(int category){
-    	
-    	categories.remove(categoryDao.get(category));	
-    	
-    	categoryDao.delete(category);
-    	
-    	categories  = categoryDao.getCategories();
-    	
-    	this.category = new category();
-    }
-
-    
+  
+	public String select(int category){
+		
+		this.category = categoryDao.get(category);
+		
+		return "categoryUpdate";
+		
+	} 
+	
 	 public String view(int category){
 		 
 		 this.category = categoryDao.get(category);

@@ -13,7 +13,7 @@ import daos.UserDao;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
-public class UserBean {
+public class UserBean implements actions {
 	
 	private entities.user user = new entities.user();
 	
@@ -39,22 +39,6 @@ public class UserBean {
 
 	public void setUser(entities.user user) {
 		this.user = user;
-	}
-	public void add(){
-		
-		user.setRoli(userDao.setRoli(2));
-		
-		userDao.add(user);
-		
-		user = new entities.user();
-	}
-	public String update(){
-		
-		userDao.update(user);
-		
-		user = new entities.user();
-		
-	return "user";	
 	}
 
 	public List<entities.user> getUsers() {
@@ -116,6 +100,7 @@ public class UserBean {
 		
 	
 	}
+	
     public void addMessage(String summary,String details){
     	
     	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,summary,details);
@@ -131,12 +116,16 @@ public class UserBean {
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
 	}
-	public String select (int user){
+	
+	public void add(){
 		
-		this.user = userDao.get(user);
+		user.setRoli(userDao.setRoli(2));
 		
-		return "userUpdate";
+		userDao.add(user);
+		
+		user = new entities.user();
 	}
+
 	public void delete(int user) {
 		
 		users.remove(userDao.get(user));
@@ -145,6 +134,23 @@ public class UserBean {
 		
 		users = userDao.getUsers();
 	}
+	
+	public String update(){
+		
+		userDao.update(user);
+		
+		user = new entities.user();
+		
+	return "user";	
+	}
+	
+	public String select (int user){
+		
+		this.user = userDao.get(user);
+		
+		return "userUpdate";
+	}
+	
 	public String view(int user){
 		
 		this.user = userDao.get(user);  
@@ -152,6 +158,7 @@ public class UserBean {
 		return "userQuestions";
 		
 	}
+	
 	public String turnBack(){
 		
 		user = new entities.user();
