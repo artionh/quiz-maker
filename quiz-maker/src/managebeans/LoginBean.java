@@ -47,7 +47,7 @@ public class LoginBean {
 			
 			setData(user);
 			
-		return "administrator/adminpage";
+		return "quizz";
 		
 		}
 	}

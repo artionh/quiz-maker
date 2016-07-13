@@ -1,3 +1,4 @@
+
 package managebeans;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -150,6 +151,8 @@ public class QuestionBean implements actions  {
 		answer.setQuestion(question);
 		
 		questionDao.add(question);
+		
+		answerDao.add(answer);
 		
 		questions.add(question);
 		
