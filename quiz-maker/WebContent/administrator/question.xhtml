@@ -11,12 +11,13 @@
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 	<h:body >
- 
+    
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />
 		</ui:insert>
+	
 		
-		<h:form class="forma">
+		<h:form class="forma">     
 		
 			<table >
 				<tr>
@@ -76,7 +77,7 @@
 		
 		<h:form >
 			<p:accordionPanel >
-				<p:tab title="Your Questions">
+				<p:tab title="Your Questions" styleClass="ui-accordion-header">
 					<p:dataTable  id="questionTable1" var="question" value="#{questionBean.questions}" >
 						<p:column headerText="Description">
 							<h:outputText value="#{question.name}"/>
