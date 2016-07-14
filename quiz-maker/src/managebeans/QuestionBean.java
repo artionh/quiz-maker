@@ -26,16 +26,11 @@ public class QuestionBean implements actions  {
 	@ManagedProperty(value = "#{answerDao}")
 	private AnswerDao answerDao;
 	
-	@ManagedProperty(value = "#{userDao}")
-	private UserDao userDao;
-	
 	@ManagedProperty(value = "#{categoryBean}")
 	private CategoryBean categoryBean;
 	
 	@ManagedProperty(value = "#{loginBean}")
 	private LoginBean loginBean;
-	
-	private int id;
 	
 	private answer answer = new answer();
 	
@@ -96,19 +91,6 @@ public class QuestionBean implements actions  {
 
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
-	}
-
-	public UserDao getUserDao() {
-		return userDao;
-	}
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public question getQuestion() {

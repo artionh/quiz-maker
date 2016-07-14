@@ -164,6 +164,8 @@ public class QuestionDao {
 //--------------------------------------------------------------------------------------------------------------------------
 
 	public List<question> createQuiz() {
+	
+		int m;
 		
 		CategoryDao categoryDao = new CategoryDao();
 		
@@ -171,7 +173,13 @@ public class QuestionDao {
 		
 		List<question> questions = new ArrayList<question>();
 		
-		int m = 20 / categories.size();
+		if(categories.size()>20)
+			
+			m = 1;
+		
+		else
+			
+		m = 20 / categories.size();
 		
 		for (int i = 0; i < categories.size(); i++) {
 			

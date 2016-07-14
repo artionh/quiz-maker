@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html" 
@@ -7,27 +7,49 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
 	<h:head></h:head>
-
+  
 	<h:body>
-
-		<p:fieldset style="margin-left:30%;margin-right:30%;" >
-			<form>
-				<ui:repeat var="q" value="#{quizBean.questions}">
-
-					<h:outputText value="#{q.name}" /> <br></br>
-
-						<p:selectOneRadio value="#{quizBean.userSelection}"  >
-							<f:selectItem itemLabel="#{q.answer.true1}" itemValue="#{q.answer.true1}"  /><br></br> 
-							<f:selectItem itemLabel="#{q.answer.false1}" itemValue="#{q.answer.false2}" /><br></br>
-							<f:selectItem itemLabel="#{q.answer.false2}" itemValue="#{q.answer.false3}" /><br></br>
-							<f:selectItem itemLabel="#{q.answer.false3}" itemValue="#{q.answer.false3}" /><br></br>
-						</p:selectOneRadio>
-						<p:separator />
-				</ui:repeat>
-				<p:commandButton value="submit" action="#{quizBean.calculateSelections}" />
-			</form>
-		</p:fieldset>
-
+		<h:form>
+				<p:fieldset id="questions" style="margin-left:30%;margin-right:30%;" >
+						<ui:repeat var="q" value="#{quizBean.quests.entrySet().toArray()}">
+							<h:outputText value="#{q.key.name}" /> <br></br>
+							<p:panelGrid >	
+								<p:selectOneRadio id="check" value="#{quizBean.selects[q.key]}"  layout="grid" columns="1"  required="true" requiredMessage="Please select a value">
+									<f:selectItem itemLabel="#{q.value[0]}" itemValue="#{q.value[0]}"  /><br></br> 
+									<f:selectItem itemLabel="#{q.value[1]}" itemValue="#{q.value[1]}" /><br></br>
+									<f:selectItem itemLabel="#{q.value[2]}" itemValue="#{q.value[2]}" /><br></br>
+									<f:selectItem itemLabel="#{q.value[3]}" itemValue="#{q.value[3]}" /><br></br>
+								</p:selectOneRadio>
+								<p:message for="check"/>
+							</p:panelGrid>
+							<p:separator/>
+						</ui:repeat>
+						</p:fieldset>
+						<p:commandButton value="Submit" update="display"  icon="ui-icon-check" oncomplete="PF('dlg').show()" />
+					
+						    
+			<p:dialog modal="true" resizable="false" widgetVar="dlg" header="Results" showEffect="clip">
+				<p:panelGrid  id="display" columnClasses="label,value">
+				<f:facet name="header" >
+					<p:column colspan="2"> You archived: #{quizBean.points} points</p:column> 
+				 </f:facet>
+				<p:row> 
+					<p:column> Question</p:column>
+					<p:column>Answer </p:column>
+				</p:row>
+					<ui:repeat var="m" value="#{quizBean.messages.entrySet().toArray()}">
+						<p:row>
+							<p:column>#{m.key.name}</p:column>
+							<p:column>#{m.value}</p:column>
+						</p:row>
+					</ui:repeat>
+					<p:row>
+						<p:column colspan="2" style="text-align:center"><p:commandButton value="OK" ajax="false" action="quizz"> </p:commandButton></p:column>
+					</p:row>
+					
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
 	</h:body>
-</html>
+</html>>
 
