@@ -9,19 +9,19 @@
 
 	<h:head></h:head>
   
-	<h:body>
+	<h:body style="background-color:#D3D3D3;">
 		<ui:insert name="header" >
 			<ui:include src="user-interface.xhtml" />
 		</ui:insert>
 		<div style="padding-left: 242px; padding-top: 34px; padding-bottom: 47px">
 		<h:outputLabel>YOUR QUIZZ</h:outputLabel>
 		</div>
-		<h:form>
-				<p:fieldset id="questions" style="margin-left:30%;margin-right:30%;" >
-						<ui:repeat var="q" value="#{quizBean.quests.entrySet().toArray()}">
+		<h:form >
+				<p:fieldset id="questions" style="margin-left:30%;margin-right:30%;background-color:#D3D3D3;"  >
+						<ui:repeat var="q" value="#{quizBean.quests.entrySet().toArray()}" >
 							<h:outputText value="#{q.key.name}" /> <br></br>
 							<p:panelGrid >	
-								<p:selectOneRadio id="check" value="#{quizBean.selects[q.key]}"  layout="grid" columns="1"  required="true" requiredMessage="Please select a value">
+								<p:selectOneRadio id="check" value="#{quizBean.selects[q.key]}"  layout="grid" columns="1"  required="true" requiredMessage="Please select a value" >
 									<f:selectItem itemLabel="#{q.value[0]}" itemValue="#{q.value[0]}"  /><br></br> 
 									<f:selectItem itemLabel="#{q.value[1]}" itemValue="#{q.value[1]}" /><br></br>
 									<f:selectItem itemLabel="#{q.value[2]}" itemValue="#{q.value[2]}" /><br></br>
