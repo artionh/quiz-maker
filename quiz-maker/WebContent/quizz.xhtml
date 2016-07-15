@@ -13,6 +13,9 @@
 		<ui:insert name="header" >
 			<ui:include src="user-interface.xhtml" />
 		</ui:insert>
+		<div style="padding-left: 242px; padding-top: 34px; padding-bottom: 47px">
+		<h:outputLabel>YOUR QUIZZ</h:outputLabel>
+		</div>
 		<h:form>
 				<p:fieldset id="questions" style="margin-left:30%;margin-right:30%;" >
 						<ui:repeat var="q" value="#{quizBean.quests.entrySet().toArray()}">
@@ -29,8 +32,9 @@
 							<p:separator/>
 						</ui:repeat>
 						</p:fieldset>
-						<p:commandButton value="Submit" update="display"  icon="ui-icon-check" oncomplete="PF('dlg').show()" />
-					
+						<div style="text-align:center ; padding-top:22px">
+							<p:commandButton  value="Submit" update="display"  icon="ui-icon-check" oncomplete="PF('dlg').show()" />
+						</div>
 						    
 			<p:dialog modal="true" resizable="false" widgetVar="dlg" header="Results" showEffect="clip">
 				<p:panelGrid  id="display" columnClasses="label,value">

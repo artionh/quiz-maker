@@ -164,26 +164,5 @@ public class QuizBean {
 		return hm;
     	
     }
-
-	
-	@SuppressWarnings("rawtypes")
-	public boolean vv() {
-    	Set set = selects.entrySet();
-    	Iterator iterator = set.iterator();
-    	
-    	while(iterator.hasNext()){
-    		
-			Map.Entry mentry = (Map.Entry)iterator.next();
-    		
-    		if (mentry.getValue()==null)
-    		{ 
-    			return false;
-    		}
-    		
-    	}
-		return true;
-    	
-	}
-	
 	
 }
