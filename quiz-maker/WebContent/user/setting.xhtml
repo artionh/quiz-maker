@@ -16,23 +16,41 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		<ui:insert name="header" >
 			<ui:include src="user-header.xhtml" />
 		</ui:insert>
-	
-		<h:form class="forma">
- 		<!-- Password change -->
-			<p:messages id="messages" showDetail="true" autoUpdate="true" />  
-			<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
-				<h:outputLabel for="oldPwd" value="Old Password: *" /> 
-				<p:password id="oldPwd" value="#{userBean.newPassword}"  label="Password" required="true"  /> 
-				<h:outputLabel for="pwd1" value="Password 1: *" />
-				<p:password id="pwd1" value="#{userBean.newPassword}" match="pwd2" label="Password 1" required="true" feedback="true" />
-				<h:outputLabel for="pwd2" value="Password 2: *" />
-				<p:password id="pwd2" value="#{userBean.newPassword}" label="Password 2" required="true" />
-			</h:panelGrid>
-			<p:commandButton update="matchGrid" value="Save" action="#{userBean.changePassword}"/>      
+		
+		<p:spacer height="50" />
+		<h:form>
+			<p:commandLink id="changePassword"  >
+				<h:outputText value="1.Change your password" />
+			</p:commandLink>
+			<p:overlayPanel id="moviePanel" for="changePassword" hideEffect="fade" dynamic="true">
+			<!-- Password change -->
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />  
+				
+				<h:panelGrid columns="1" id="matchGrid" cellpadding="5">
+					<h:outputLabel for="oldPwd" value="Old Password: *" /> 
+					<p:password id="oldPwd" value="#{userBean.password}"  label="Password" required="true"  /> 
+					<p:separator />
+					
+					<h:outputLabel for="pwd1" value="New password: *" />
+					<p:password id="pwd1" value="#{userBean.newPassword}" match="pwd2" label="Password 1" required="true" feedback="true" />
+					<p:separator />
+					
+					<h:outputLabel for="pwd2" value="Confirm new password *" />
+					<p:password id="pwd2" value="#{userBean.newPassword}" label="Password 2" required="true" />
+					
+				</h:panelGrid>
+				
+				<p:commandButton update="matchGrid messages" value="Save" action="#{userBean.changePassword}"/>
+				
+			</p:overlayPanel>
 		</h:form>
+		
+		<p:spacer height="300" />
+		
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
+			
 	</h:body>
 
-</html>		
-
-
-
+</html>
