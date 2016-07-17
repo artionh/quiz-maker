@@ -8,50 +8,41 @@
 
 	<h:head>
 		<title>Login</title>
-		<style> .error{color:red}</style>
-		<h:outputStylesheet library="css" name="style.css" />
+		<h:outputStylesheet library="css" name="style.css" />  
 	</h:head>
- 
 	<h:body>
-	
-		<ui:insert name="header" >
+	    <ui:insert name="header" >
 			<ui:include src="user-interface.xhtml" />
 		</ui:insert>
- 
-		<div style="padding-top:10%">
-			<p:fieldset legend="Enter your information" style="margin-left:30%;margin-right:30%;" >
-				<h:form>
-					<table>
-						<tr>
-							 <td><LABEL>Username</LABEL></td>
-							 <td><h:inputText id="username" required="true" value="#{loginBean.username}" requiredMessage="*required" /></td>
-							 <td ><h:message for="username" styleClass="error" /></td>
-						</tr>
-						<tr>
-							<tr>
-								<td><label></label></td></tr>
-							<tr>
-								<td><label></label></td></tr>
-								<td><LABEL>Password</LABEL></td>  
-								<td><p:password id="password" value="#{loginBean.password}" required="true" requiredMessage="*required"  /></td>
-								<td ><h:message for="password" styleClass="error" /></td>
-							</tr>
-							<tr>
-								<td><label></label></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><h:commandButton action="#{loginBean.login}" value= "Login"  /> </td>
-							</tr>
-						</table>
-						<br></br>
+		
+		<div style="padding-left: 250px; padding-top: 100px; padding-right:350px">
+			<h:form>
+				<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+				<p:fieldset legend="Enter Your information" style="margin-bottom:20px" >
+					<h:panelGrid  columns="2" cellpadding="5" >
+						<h:outputLabel for="username" value="Username:" />
+						<p:inputText id="username" value="#{loginBean.username}" required="true" label="username" />
+						
+						<h:outputLabel for="password" value="Password:" />
+						<p:password id="password" value="#{loginBean.password}" required="true" label="password" />
+		 
+						<f:facet name="footer">
+							<div style="text-align: center">
+								<p:commandButton value="Login" action="#{loginBean.login}" update="growl"/>
+							</div>
+						</f:facet> 
 						<p:watermark value="Enter your email" for="username" />
 						<p:watermark value="Enter your password" for="password" />
-					</h:form>
-				<h:outputText value="Not a member yet ?" style="margin-left:25%;" /><h:link value="Click here" outcome="singup" />
-			</p:fieldset>
+					</h:panelGrid>
+					 </p:fieldset>   
+	        </h:form>   
+	        <h:form>
+	       		 <h:outputText value="Not a member yet ?" style="margin-left:25%;" />
+	        	<p:link value="Click here" href="http://localhost:8080/QuizMaker/faces/singup.xhtml" />
+			</h:form>
 		</div>
- 
+		<ui:insert name="footer" >
+			<ui:include src="footer.xhtml" />
+		</ui:insert>
 	</h:body>
-
 </html>

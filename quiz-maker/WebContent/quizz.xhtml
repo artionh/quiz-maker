@@ -9,15 +9,15 @@
 
 	<h:head></h:head>
   
-	<h:body style="background-color:#D3D3D3;">
+	<h:body >
 		<ui:insert name="header" >
 			<ui:include src="user-interface.xhtml" />
 		</ui:insert>
-		<div style="padding-left: 242px; padding-top: 34px; padding-bottom: 47px">
-		<h:outputLabel>YOUR QUIZZ</h:outputLabel>
+		<div style=" text-align: center; font-size: 30px; font-weight:bold ;font-family: Times New Roman; color:#93cae8 ">
+		YOUR QUIZZ
 		</div>
 		<h:form >
-				<p:fieldset id="questions" style="margin-left:30%;margin-right:30%;background-color:#D3D3D3;"  >
+				<p:fieldset id="questions" style="margin-left:30%;margin-right:30%"  >
 						<ui:repeat var="q" value="#{quizBean.quests.entrySet().toArray()}" >
 							<h:outputText value="#{q.key.name}" /> <br></br>
 							<p:panelGrid >	
@@ -58,6 +58,9 @@
 				</p:panelGrid>
 			</p:dialog>
 		</h:form>
+		<ui:insert name="footer" >
+			<ui:include src="footer.xhtml" />
+		</ui:insert>
 	</h:body>
 </html>
 

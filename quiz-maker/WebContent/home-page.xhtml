@@ -10,15 +10,14 @@
 		<ui:insert name="header" >
 			<ui:include src="user-interface.xhtml" />
 		</ui:insert>
-		
-		           
-			        <h:link  outcome="quizz" >
-				    <h:graphicImage library="image"  name="img11.png" value="quizz" style="padding-top:8%; margin-left:37%" />
-				    </h:link>
-				    
-				  
-	                
-		
+		<div style="margin-bottom:25px;"> 	           
+			<h:link  outcome="quizz" >
+				<h:graphicImage library="image"  name="img11.png" value="quizz" style="padding-top:8%; margin-left:37%" />
+			</h:link>	  
+	    </div>          
+			<ui:insert name="footer" >
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
 		</h:body>
 		
 		</html>

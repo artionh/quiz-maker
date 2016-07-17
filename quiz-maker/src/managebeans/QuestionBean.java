@@ -1,13 +1,19 @@
 
 package managebeans;
+
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
+import java.io.ByteArrayInputStream;
+import org.primefaces.model.DefaultStreamedContent;
+
 import daos.AnswerDao;
 import daos.QuestionDao;
-import daos.UserDao;
 import entities.answer;
 import entities.category;
 import entities.question;
@@ -25,7 +31,7 @@ public class QuestionBean implements actions  {
 	
 	@ManagedProperty(value = "#{answerDao}")
 	private AnswerDao answerDao;
-	
+	  
 	@ManagedProperty(value = "#{categoryBean}")
 	private CategoryBean categoryBean;
 	
@@ -37,6 +43,10 @@ public class QuestionBean implements actions  {
 	private question question = new question();
 	
 	private List<question> allQuestions;
+	
+	private UploadedFile file ;
+	
+	private StreamedContent file1;
 
 
 	@PostConstruct
@@ -77,6 +87,7 @@ public class QuestionBean implements actions  {
 	public void setAnswerDao(AnswerDao answerDao) {
 		this.answerDao = answerDao;
 	}
+	
 	public CategoryBean getCategoryBean() {
 		return categoryBean;
 	}
@@ -122,7 +133,30 @@ public class QuestionBean implements actions  {
 		return allQuestions;
 	}
 	
-    public void add(){
+	
+    public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
+	public StreamedContent getFile1() {
+		file1 = new DefaultStreamedContent(new ByteArrayInputStream(question.getImage()));
+	return file1;	
+	}
+
+	public void setFile1(StreamedContent file1) {
+		this.file1 = file1;
+	}
+
+	public void add(){
+		
+		if(file != null){
+			byte[] bFile = file.getContents();
+			question.setImage(bFile);
+		}
 		
 		question.setName(question.getName());
 		
@@ -130,9 +164,9 @@ public class QuestionBean implements actions  {
 		
 		question.setUseri(loginBean.getUser());
 		
-		answer.setQuestion(question);
-		
 		questionDao.add(question);
+		
+		answer.setQuestion(question);
 		
 		answerDao.add(answer);
 		
@@ -143,6 +177,7 @@ public class QuestionBean implements actions  {
 		question = new question();
 		
 		answer = new answer();
+		
 		
 		categoryBean.setId(0);
 		
@@ -163,22 +198,27 @@ public class QuestionBean implements actions  {
 		
 		allQuestions = questionDao.getQuestion();	
 		
+		
 	}
 	public String update(){
 		
 		   question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+		   
+		   if(file != null){
+			   
+				byte[] bFile = file.getContents();
+				question.setImage(bFile);
+				
+			}
 		   
 			questionDao.update(question);
 			
 			question =  new question();
 			
 			categoryBean.setId(0);
+	     
 			
-			questions.clear();
-			
-			allQuestions.clear();
-			
-			questions = loginBean.getUser().getQuestions();	
+			questions = questionDao.getQuestionUser(loginBean.getUser().getId()) ;	
 			
 			allQuestions = questionDao.getQuestion();
 			
@@ -208,7 +248,6 @@ public class QuestionBean implements actions  {
 					cs.set(0, c);
 				}	
 			}
-			System.out.println(cs.get(0).getName());
 			
 			categoryBean.setCategories(cs);
 			
@@ -218,14 +257,17 @@ public class QuestionBean implements actions  {
 			
 			allQuestions = questionDao.getQuestion();
 			
+			file1 = new DefaultStreamedContent(new ByteArrayInputStream(this.question.getImage()));
+			
 			if(loginBean.getUser().getRoli().getId()==1)
 				
 				return "questionUpdateAdmin";
 			
 				else
+				
 					
 			return "questionUpdate";
-			
+				
 		}
 
 	public String view(int question){
@@ -243,5 +285,6 @@ public class QuestionBean implements actions  {
 		
 		return "adminpage";
 	}
+	
 	
 }

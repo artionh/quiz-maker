@@ -6,7 +6,7 @@ xmlns:f="http://xmlns.jcp.org/jsf/core"
 xmlns:p="http://primefaces.org/ui" 
 xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
-	<h:head><title>qUESTION uPDATE</title>
+	<h:head><title>Question Update</title>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 
@@ -15,7 +15,12 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
  		<ui:insert name="header" >
 		  	<ui:include src="user-header.xhtml" />
 		</ui:insert>
-		<h:form class="forma">
+		<div >
+		<p:graphicImage value ="#{questionBean.file1}" ></p:graphicImage>
+		</div>
+		<h:form class="forma" enctype="multipart/form-data">
+		 <p:fileUpload value="#{questionBean.file}" mode="simple"  />
+		
   			<table> 
   				<tr>
 					<td><label >Question</label></td>

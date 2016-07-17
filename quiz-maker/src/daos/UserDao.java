@@ -173,6 +173,31 @@ public class UserDao {
 	        }
 	        return u;
 		}
-		
+//------------------------------------------------------------------------------------------------------------------------
+		public boolean Exist(String username){
+Session session = hibernateUtil.getSessionFactory().openSession();
+	        
+	        try {  
+	        	session.beginTransaction();
+	        	
+	            String sql =  "from user s where"
+					+ " s.username='"+username+"'";
+	            
+	          user user =  (entities.user) session.createQuery(sql).getSingleResult();
+	          
+	           if(user==null)
+	        	   
+	        	   return false;
+	           
+	           else   
+	        	   
+	        	   return true;
+	           
+	        }finally {
+	        	
+	             session.close();
+	        }
+			
+		}
 		
 }

@@ -115,7 +115,7 @@ public class CategoryBean implements actions {
 		
 		category = new category();
 		
-		return "category";
+		return "administrator/category";
 	}
   
   
@@ -123,7 +123,7 @@ public class CategoryBean implements actions {
 		
 		this.category = categoryDao.get(category);
 		
-		return "categoryUpdate";
+		return "administrator/categoryUpdate";
 		
 	} 
 	
@@ -131,7 +131,7 @@ public class CategoryBean implements actions {
 		 
 		 this.category = categoryDao.get(category);
 		 
-		 return "categoryQuestions";
+		 return "administrator/categoryQuestions";
 		 
 	 }
 	 
@@ -140,7 +140,7 @@ public class CategoryBean implements actions {
 		 
 		 category = new category();
 		 
-		return "adminpage";
+		return "administrator/adminpage";
 		 
 	 }
 	

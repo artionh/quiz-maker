@@ -1,9 +1,11 @@
 package managebeans;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped; 
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import daos.SessionUtils;
@@ -11,7 +13,7 @@ import daos.UserDao;
 import entities.user;
    
 @ManagedBean(name="loginBean")
-
+  
 @SessionScoped 
 
 public class LoginBean {
@@ -33,20 +35,24 @@ public class LoginBean {
 	}
 
 	public String login() {
+	     FacesMessage message = null;
 		
 		user=userDao.getUser(password,username);
 		
 		if(user==null)
 			
-			return "login";
-		
+		{
+			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return "";
+	}
 		else{
 			
 			setData(user);
-			
-		return "quizz";
+			return "singup";
 		
 		}
+		
 	}
 
 	public UserDao getUserDao() {
@@ -113,7 +119,7 @@ public class LoginBean {
 		
 		session.invalidate();
 		
-		return "login";
+		return "login.xhtml";
 	}
 	
 }

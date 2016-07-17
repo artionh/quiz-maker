@@ -103,7 +103,7 @@ public class UserBean implements actions {
 	
     public void addMessage(String summary,String details){
     	
-    	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,summary,details);
+    	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,summary,details);
     	
     	FacesContext.getCurrentInstance().addMessage(null, message);
     	
@@ -118,12 +118,15 @@ public class UserBean implements actions {
 	}
 	
 	public void add(){
-		
+		if(userDao.Exist(user.getUsername())){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn!", "This username exist . Try another."));
+		}
+		else{
 		user.setRoli(userDao.setRoli(2));
-		
 		userDao.add(user);
-		
 		user = new entities.user();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Attention! ", "Your account was sucessfully created"));
+		}
 	}
 
 	public void delete(int user) {

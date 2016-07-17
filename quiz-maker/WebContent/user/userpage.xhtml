@@ -16,10 +16,14 @@
 			<ui:include src="user-header.xhtml" />
 		</ui:insert>
 		<!-- Shtimi i nje pyetjeje nga useri -->
-		<h:form class="forma">
 		
+		<h:form class="forma" enctype="multipart/form-data" >
+		 <p:fileUpload value="#{questionBean.file}" mode="simple"  />
 			<table >
+			
 				<tr>
+				
+
 					<p:messages autoUpdate="true" />
 					<td><p:outputLabel for="car" value="Category: " /></td>
 					<td><p:selectOneMenu id="car" required="true" value="#{categoryBean.id}"  valueChangeListener="true" requiredMessage="*required">
@@ -56,16 +60,17 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td> <p:commandButton value="add" actionListener="#{questionBean.add}" process="@this @form" update="j_idt56:j_idt58:j_idt59 @form"/>  </td>  
+					<td> <p:commandButton ajax="false" value="add" actionListener="#{questionBean.add}" process="@this @form" update=" @form"/>  </td>  
 				</tr>
+				
 			</table>
 				<p:watermark value="Your question" for="question"  />
 				<p:watermark value="Correct answer" for="answer"  />
 				<p:watermark value="wrong answer" for="answer1"  />
 				<p:watermark value="wrong answer" for="answer2"  />
 			    <p:watermark value="wrong answer" for="answer3"  />
-
-		</h:form>
+</h:form>
+		
 		
 			
 		<h:form >
@@ -79,6 +84,9 @@
 						<p:column headerText="Category" >
 							<h:outputText value="#{question.category.name}" />
 						</p:column> 
+						<p:column headerText="Category" >
+							<h:outputText value="#{question.category.name}" />
+						</p:column>
 						<p:column headerText="Action" >    
 							<p:commandLink value= "Update" ajax="false" process="@this" action="#{questionBean.select(question.id)}" /> 
 							<p:growl id="message" showDetail="true" > </p:growl>
