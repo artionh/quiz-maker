@@ -24,7 +24,7 @@
 					<p:panel header="Add a question" >
 						
 						  <p:outputLabel value="Upload a picture" for="fileupload" />
-							<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+							<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple" />
 							<p:separator />
 					
 							<p:outputLabel value="Category:" for="categ" />
@@ -81,6 +81,10 @@
 						
 						<p:column headerText="Category" >
 							<h:outputText value="#{question.category.name}" />
+						</p:column>
+						
+						<p:column headerText="Image" >
+							<h:outputText value="#{question.image}" />
 						</p:column>
 						
 						<p:column headerText="Action" >  

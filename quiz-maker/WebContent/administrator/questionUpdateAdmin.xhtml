@@ -21,7 +21,7 @@
 				<p:growl id="msgs" showDetail="true" />
 				<p:fieldset legend="Question" style="margin-bottom:20px">
 					<h:panelGrid columns="1" cellpadding="5" >
-						<p:graphicImage value ="#{questionBean.file1}" alt=""/>
+						<h:graphicImage library="image" name ="#{questionBean.question.image}" alt="No image"/>
           
 						<p:outputLabel value="Change picture" for="fileupload" />
 						<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />

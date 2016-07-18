@@ -1,6 +1,11 @@
 
 package managebeans;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -8,11 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
-import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
-import java.io.ByteArrayInputStream;
-import org.primefaces.model.DefaultStreamedContent;
 
 import daos.AnswerDao;
 import daos.QuestionDao;
@@ -47,8 +48,6 @@ public class QuestionBean implements actions  {
 	private List<question> allQuestions;
 	
 	private UploadedFile file ;
-	
-	private StreamedContent file1;
 	
 
 	@PostConstruct
@@ -144,24 +143,11 @@ public class QuestionBean implements actions  {
 	public void setFile(UploadedFile file) {
 		this.file = file;
 	}
-
-	public StreamedContent getFile1() {
-		file1 = new DefaultStreamedContent(new ByteArrayInputStream(question.getImage()));
-	return file1;	
-	}
-
-	public void setFile1(StreamedContent file1) {
-		this.file1 = file1;
-	}
 	
 
 	public void add(){
 		
-		if(file != null){
-			byte[] bFile = file.getContents();
-			question.setImage(bFile);
-			
-		}
+		if(savePhoto()){
 		
 		question.setName(question.getName());
 		
@@ -188,7 +174,7 @@ public class QuestionBean implements actions  {
 		if(loginBean.getUser().getRoli().getName().equals("admin"))
 		
 		allQuestions = questionDao.getQuestion();	
-		 
+		} 
 	}
 	
 	public void delete(int question) {
@@ -211,17 +197,11 @@ public class QuestionBean implements actions  {
 	}
 	
 	public String update(){
-		
-		   question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+		if (savePhoto())
+		{
+		question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
 		   
-		   if(file != null){
-			   
-				byte[] bFile = file.getContents();
-				question.setImage(bFile);
-				
-			}
-		   
-			questionDao.update(question);
+		questionDao.update(question);
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
 			
@@ -241,7 +221,9 @@ public class QuestionBean implements actions  {
 			
 				else
 					
-			return "userpage";
+			return "userpage";}
+		else
+			return null;
 		}
 
 	 public String select(int question) {
@@ -266,8 +248,6 @@ public class QuestionBean implements actions  {
 			
 			categoryBean.setId(this.question.getCategori().getId());
 			
-			file1 = new DefaultStreamedContent(new ByteArrayInputStream(this.question.getImage()));
-			
 			if(loginBean.getUser().getRoli().getId()==1)
 				
 				return "questionUpdateAdmin";
@@ -283,10 +263,6 @@ public class QuestionBean implements actions  {
 		
 		this.question = questionDao.get(question);
 		
-		file1 = new DefaultStreamedContent(new ByteArrayInputStream(this.question.getImage()));
-		
-		System.out.println(this.question.getName());
-		
 		return "questionView";
 		
 	}
@@ -297,6 +273,33 @@ public class QuestionBean implements actions  {
 		
 		return "adminpage";
 	}
-	
+	public boolean savePhoto(){
+		
+if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
+			{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Change the name of the file or choose another!"));
+				return false;
+			}
+else{
+
+question.setImage(file.getFileName());
+			File destination = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
+			try {
+				InputStream in = file.getInputstream();
+				OutputStream out = new FileOutputStream(destination);
+				int read = 0;
+			       byte[] bytes = new byte[1024];
+			        while ((read = in.read(bytes)) != -1) {
+			             out.write(bytes, 0, read);}
+			            in.close();
+			            out.flush();
+			          out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		}
+	}
 	
 }

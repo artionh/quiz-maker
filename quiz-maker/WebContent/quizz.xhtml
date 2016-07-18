@@ -20,6 +20,7 @@
 				<p:fieldset id="questions" style="margin-left:30%;margin-right:30%"  >
 						<ui:repeat var="q" value="#{quizBean.quests.entrySet().toArray()}" >
 							<h:outputText value="#{q.key.name}" /> <br></br>
+							<h:graphicImage library="image" name ="#{q.key.image}" alt="No image"/>
 							<p:panelGrid >	
 								<p:selectOneRadio id="check" value="#{quizBean.selects[q.key]}"  layout="grid" columns="1"  required="true" requiredMessage="Please select a value" >
 									<f:selectItem itemLabel="#{q.value[0]}" itemValue="#{q.value[0]}"  /><br></br> 

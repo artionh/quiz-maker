@@ -10,15 +10,16 @@
 		<title> View Question </title>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
-	<h:body >2
+	<h:body >
  
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />
 		</ui:insert>
 		
 		<h:form>
-			<p:graphicImage value ="#{questionBean.file1}" alt="No photo"/>
+			<h:graphicImage library="image" name ="#{questionBean.question.image}" alt="No image" style="width: 450px" />
 			<p:panelGrid  columns="2" cellpadding="5">
+			
 				<h:outputLabel for="name" value="Question Name"></h:outputLabel>
 				<h:outputLabel for="name" value="#{questionBean.question.name}"></h:outputLabel>
 				<h:outputLabel for="name" value="Question Category"></h:outputLabel>
