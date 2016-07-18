@@ -27,6 +27,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 				<p:messages id="messages" showDetail="true" autoUpdate="true" />  
 				
 				<h:panelGrid columns="1" id="matchGrid" cellpadding="5">
+				
 					<h:outputLabel for="oldPwd" value="Old Password: *" /> 
 					<p:password id="oldPwd" value="#{userBean.password}"  label="Password" required="true"  /> 
 					<p:separator />

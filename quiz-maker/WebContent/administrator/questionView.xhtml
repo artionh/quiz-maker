@@ -10,13 +10,14 @@
 		<title> View Question </title>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
-	<h:body >
+	<h:body >2
  
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />
 		</ui:insert>
 		
 		<h:form>
+			<p:graphicImage value ="#{questionBean.file1}" alt="No photo"/>
 			<p:panelGrid  columns="2" cellpadding="5">
 				<h:outputLabel for="name" value="Question Name"></h:outputLabel>
 				<h:outputLabel for="name" value="#{questionBean.question.name}"></h:outputLabel>
@@ -36,5 +37,8 @@
 				<h:outputText value="Turn Back"/>
 			</p:commandLink> 
 		</h:form>
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
 	</h:body>
 </html>

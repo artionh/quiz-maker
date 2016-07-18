@@ -16,50 +16,54 @@
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />
 		</ui:insert>
-		
-		<h:form class="forma">
-			<table> 
-				<tr>
-					<td><label >Question</label></td>
-					<td> <h:inputText id="question" required="true" value="#{questionBean.question.name}" requiredMessage="*required" /> </td>
-					<td colspan="2"><h:message for="question" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<p:messages autoUpdate="true" />
-					<td><p:outputLabel for="car" value="Category: " /></td>
-					<td><p:selectOneMenu id="car" required="true" value="#{categoryBean.id}"  valueChangeListener="true" requiredMessage="*required">
-						<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
-						</p:selectOneMenu>  
-					</td>
-					<td colspan="2"><h:message for="question" styleClass="error" /></td>
-				</tr>
-				<tr>
-				<td><label >Answer</label></td>
-				<td> <h:inputText id="answer" required="true" value="#{questionBean.question.answer.true1}"   requiredMessage="*required"  /> </td>
-				<td colspan="2"><h:message for="answer" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td><label >Answer</label></td>
-					<td> <h:inputText id="answer1" required="true" value="#{questionBean.question.answer.false1}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
-					<td colspan="2"><h:message for="answer1" styleClass="error" /></td>
-				</tr>
-   
-				<tr>
-					<td><label >Answer</label></td>
-					<td> <h:inputText id="answer2" required="true" value="#{questionBean.question.answer.false2}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
-					<td colspan="2"><h:message for="answer2" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td><label >Answer</label></td>
-					<td> <h:inputText id="answer3" required="true" value="#{questionBean.question.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
-					<td colspan="2"><h:message for="answer3" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td> <p:commandButton value="update" ajax="false" action="#{questionBean.update}" update="question" />  </td>
-				</tr>
-			</table>
+		<h:form enctype="multipart/form-data">
+			<div style=" margin-left: 200px;  margin-right: 200px;">
+				<p:growl id="msgs" showDetail="true" />
+				<p:fieldset legend="Question" style="margin-bottom:20px">
+					<h:panelGrid columns="1" cellpadding="5" >
+						<p:graphicImage value ="#{questionBean.file1}" alt=""/>
+          
+						<p:outputLabel value="Change picture" for="fileupload" />
+						<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+						<p:separator />
+					
+						<p:outputLabel value="Category:" for="categ" />
+						<p:selectOneMenu id="categ" required="true" value="#{categoryBean.id}"  requiredMessage="*required" >
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
+						</p:selectOneMenu> 						
+						<p:message for="categ" />
+						<p:separator />
+						
+						<p:outputLabel value="Description:" for="question" />
+						<h:inputText id="question" required="true" value="#{questionBean.question.name}" requiredMessage="*required" /> 
+						<p:message for="question" />
+							
+						<p:outputLabel value="True " for="answer" />
+						<h:inputText id="answer" required="true" value="#{questionBean.question.answer.true1}"  requiredMessage="*required"  /> 
+						<p:message for="answer" />
+							
+						<p:outputLabel value="False " for="answer1" />
+						<h:inputText id="answer1" required="true" value="#{questionBean.question.answer.false1}" requiredMessage="*required" p:placeHolder="Correct answer here"   /> 
+						<p:message for="answer1" />
+							
+						<p:outputLabel value="False " for="answer2" />
+						<h:inputText id="answer2" required="true" value="#{questionBean.question.answer.false2}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
+						<p:message for="answer2" />
+							
+						<p:outputLabel value="False " for="answer3" />
+						<h:inputText id="answer3" required="true" value="#{questionBean.question.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
+						<p:message for="answer3" />
+					</h:panelGrid>
+
+				</p:fieldset>
+				<p:commandButton ajax="false"  value="update" action="#{questionBean.update}"/> 
+			</div>
 		</h:form>
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
 	</h:body>
+	
 
 </html>	

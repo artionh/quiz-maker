@@ -3,9 +3,11 @@ package managebeans;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -47,14 +49,15 @@ public class QuestionBean implements actions  {
 	private UploadedFile file ;
 	
 	private StreamedContent file1;
-
+	
 
 	@PostConstruct
 	public void init() {
-		
-		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+		if(loginBean.getUser().getRoli().getName().equals("admin"))
 		
 		allQuestions = questionDao.getQuestion();
+		
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
 			
 	}
 
@@ -150,12 +153,14 @@ public class QuestionBean implements actions  {
 	public void setFile1(StreamedContent file1) {
 		this.file1 = file1;
 	}
+	
 
 	public void add(){
 		
 		if(file != null){
 			byte[] bFile = file.getContents();
 			question.setImage(bFile);
+			
 		}
 		
 		question.setName(question.getName());
@@ -170,21 +175,20 @@ public class QuestionBean implements actions  {
 		
 		answerDao.add(answer);
 		
-		questions.add(question);
-		
-		allQuestions.add(question);
-		
 		question = new question();
 		
 		answer = new answer();
 		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully added"));
 		
 		categoryBean.setId(0);
 		
 		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
 		
-		allQuestions = questionDao.getQuestion();	
+		if(loginBean.getUser().getRoli().getName().equals("admin"))
 		
+		allQuestions = questionDao.getQuestion();	
+		 
 	}
 	
 	public void delete(int question) {
@@ -194,12 +198,18 @@ public class QuestionBean implements actions  {
 		
 		questions.remove(questionDao.get(question));
 		
-		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully deleted"));
+		
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());
+		
+		if(loginBean.getUser().getRoli().getName().equals("admin"))
 		
 		allQuestions = questionDao.getQuestion();	
 		
 		
+		
 	}
+	
 	public String update(){
 		
 		   question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
@@ -213,12 +223,15 @@ public class QuestionBean implements actions  {
 		   
 			questionDao.update(question);
 			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
+			
 			question =  new question();
 			
 			categoryBean.setId(0);
 	     
-			
 			questions = questionDao.getQuestionUser(loginBean.getUser().getId()) ;	
+			
+			if(loginBean.getUser().getRoli().getName().equals("admin"))
 			
 			allQuestions = questionDao.getQuestion();
 			
@@ -253,10 +266,6 @@ public class QuestionBean implements actions  {
 			
 			categoryBean.setId(this.question.getCategori().getId());
 			
-			questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
-			
-			allQuestions = questionDao.getQuestion();
-			
 			file1 = new DefaultStreamedContent(new ByteArrayInputStream(this.question.getImage()));
 			
 			if(loginBean.getUser().getRoli().getId()==1)
@@ -274,11 +283,14 @@ public class QuestionBean implements actions  {
 		
 		this.question = questionDao.get(question);
 		
+		file1 = new DefaultStreamedContent(new ByteArrayInputStream(this.question.getImage()));
+		
 		System.out.println(this.question.getName());
 		
 		return "questionView";
 		
 	}
+	
 	public String turnBack(){
 		
 		question = new question();

@@ -8,9 +8,6 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 	<h:head>
 		<title>Categories</title>
-		<style>
-			.error{color:red}
-		</style>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 
@@ -19,25 +16,25 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />
 		</ui:insert>
-		<!-- Shtimi i nje kategorie
-		te re -->
-		<h:form>
 		
-			<table >
-				<tr>
-					<td><label >Name</label></td>
-					<td> <h:inputText id="name" value="#{categoryBean.category.name}" required="true" requiredMessage="*required" /> </td>
-					<td colspan="2"><h:message for="name" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><h:commandButton actionListener="#{categoryBean.add}" value="Add" process="@this @form" update="j_idt35:j_idt36:categoryTable @form"/></td>
-				</tr>    
-			</table>  
-  
-			<p:watermark value="new name" for="name"  />
-			
-		</h:form>
+		<!-- Shtimi i nje kategoriete re -->
+		
+		<div style="text-align:center; margin-right: 350px;margin-left: 179px">
+			<h:form>
+			 <p:growl id="growl"  showDetail="true"/>
+				<p:tab >
+					<p:panel header="Add a category" >
+						<h:panelGrid columns="1"  cellpadding="1">
+							<p:outputLabel value="Name:" for="category" />
+							<h:inputText id="category" required="true" value="#{categoryBean.category.name}" requiredMessage="*required" /> 
+							<p:message for="category" />
+							<h:commandButton actionListener="#{categoryBean.add}" value="Add" process="@this @form" update="j_idt35:j_idt36:categoryTable @form"/>
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:watermark value="Enter the category Name" for="category"  />
+			</h:form>
+		</div>
 
 		<br></br>
         <!-- Listimi i te gjitha kategorive dhe afishimi i veprimeve update delete per kategorite -->
@@ -46,9 +43,11 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 			<p:accordionPanel >
 				<p:tab title="Categories" style="background:red">
 					<p:dataTable id="categoryTable" var="category" value="#{categoryBean.categories}">
+					
 						<p:column headerText="Description">
 							<h:outputText value="#{category.name}"/>
 						</p:column>  
+						
 						<p:column headerText="Action" >    
 							<p:commandLink value= "Update" ajax="false" process="@this" action="#{categoryBean.select(category.id)}" /> 
 							<p:growl id="message" showDetail="true" > </p:growl>
@@ -61,13 +60,14 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>  
 						</p:column>   
+						
 					</p:dataTable>
 				</p:tab>
 			</p:accordionPanel>
 			
-			
 		</h:form>
-
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
 	</h:body>
-
 </html>
