@@ -46,7 +46,7 @@ public class QuestionBean implements actions  {
 	
 	private List<question> allQuestions;
 	
-	private UploadedFile file ;
+	private UploadedFile file  ;
 	
 
 	@PostConstruct
@@ -157,46 +157,35 @@ public class QuestionBean implements actions  {
 	
 
 	public void add(){
-	
-		if(file != null)	{
 		
-			if(savePhoto())	{
-		
-				question.setName(question.getName());
-		
-				question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
-		
-				question.setUseri(loginBean.getUser());
-		
-				questionDao.add(question);
-		
-				answer.setQuestion(question);
-		
-				answerDao.add(answer);
-		
-				question = new question();
-		
-				answer = new answer();
-		
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully added"));
-		
-				categoryBean.setId(0);
-		
-				questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
-				
-				if(loginBean.getUser().getRoli().getName().equals("admin"))
-		
-					allQuestions = questionDao.getQuestion();	
-				
-					file=null;
-				} 
-				
-			}
-		
-			else
-			{
-				question.setName(question.getName());
+		if(file.getSize() != 0){
 			
+			if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
+			{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Change the name of the file or choose another!"));
+						}
+			else{
+				
+				question.setImage(file.getFileName());
+				System.out.println(file.getFileName());
+				File destination = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
+				try {
+					InputStream in = file.getInputstream();
+					OutputStream out = new FileOutputStream(destination);
+					int read = 0;
+				    byte[] bytes = new byte[1024];
+				    while ((read = in.read(bytes)) != -1) {
+				        out.write(bytes, 0, read);}
+						in.close();
+				        out.flush();
+						out.close();
+						
+						} catch (IOException e) {
+					// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				question.setName(question.getName());
+				
 				question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
 			
 				question.setUseri(loginBean.getUser());
@@ -220,36 +209,73 @@ public class QuestionBean implements actions  {
 				if(loginBean.getUser().getRoli().getName().equals("admin"))
 			
 				allQuestions = questionDao.getQuestion();	
-			}
+				
+			}	
 		}
-	
-		public void delete(int question) {
+		else{
+
+				
+			question.setName(question.getName());
+			
+			question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
 		
+			question.setUseri(loginBean.getUser());
 		
-			questionDao.delete(question);
+			questionDao.add(question);
 		
-			questions.remove(questionDao.get(question));
+			answer.setQuestion(question);
 		
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully deleted"));
+			answerDao.add(answer);
 		
-			questions = questionDao.getQuestionUser(loginBean.getUser().getId());
+			question = new question();
+		
+			answer = new answer();
+			
+			file = null;
+		
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully added"));
+		
+			categoryBean.setId(0);
+		
+			questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
 		
 			if(loginBean.getUser().getRoli().getName().equals("admin"))
 		
-			allQuestions = questionDao.getQuestion();	
-		
-		
-		
+			allQuestions = questionDao.getQuestion();
+			}
 		}
 	
+	
 	public String update(){
-		
-		if(file!=null){
-			
-			if (savePhoto())
-				{
+		if(file.getSize() != 0 ){
+			if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
+			{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Change the name of the file or choose another!"));
+				return null;
+			}
+			else{
+				
+				question.setImage(file.getFileName());
+				
+				System.out.println(file.getFileName());
+				File destination = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
+				try {
+					InputStream in = file.getInputstream();
+					OutputStream out = new FileOutputStream(destination);
+					int read = 0;
+				    byte[] bytes = new byte[1024];
+				    while ((read = in.read(bytes)) != -1) {
+				        out.write(bytes, 0, read);}
+						in.close();
+				        out.flush();
+						out.close();
+						
+						} catch (IOException e) {
+					// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 				question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
-		   
+				   
 				questionDao.update(question);
 			
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
@@ -272,40 +298,59 @@ public class QuestionBean implements actions  {
 			
 				else
 					
-					return "userpage";}
-			else
-					
-					return null;
-			}
-		else
-		{
+					return "userpage";
 				
-			question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
-			   
-			questionDao.update(question);
-				
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
-				
-			question =  new question();
-				
-			categoryBean.setId(0);
-		     
-			questions = questionDao.getQuestionUser(loginBean.getUser().getId()) ;	
-				
-			if(loginBean.getUser().getRoli().getName().equals("admin"))
-				
-				allQuestions = questionDao.getQuestion();
-				
-			if(loginBean.getUser().getRoli().getId()==1)
-					
-				return "question";
-				
-			else
-				
-				return "userpage";
 			}
 			
 		}
+		else{
+		
+			question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+			   
+			questionDao.update(question);
+		
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
+		
+			question =  new question();
+		
+			categoryBean.setId(0);
+			
+			file=null;
+     
+			questions = questionDao.getQuestionUser(loginBean.getUser().getId()) ;	
+		
+			if(loginBean.getUser().getRoli().getName().equals("admin"))
+		
+				allQuestions = questionDao.getQuestion();
+		
+			if(loginBean.getUser().getRoli().getId()==1)
+			
+				return "question";
+		
+			else
+				
+				return "userpage";
+		}
+	}
+	
+	public void delete(int question) {
+		
+		
+		questionDao.delete(question);
+	
+		questions.remove(questionDao.get(question));
+	
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully deleted"));
+	
+		questions = questionDao.getQuestionUser(loginBean.getUser().getId());
+	
+		if(loginBean.getUser().getRoli().getName().equals("admin"))
+	
+		allQuestions = questionDao.getQuestion();	
+	
+	
+	
+	}
 				
 
 	public String select(int question) {
@@ -356,35 +401,10 @@ public class QuestionBean implements actions  {
 		
 		return "adminpage";
 	}
-	
-	public boolean savePhoto(){
-		
-		if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
-			{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Change the name of the file or choose another!"));
-				return false;
-			}
-		else{
 
-		question.setImage(file.getFileName());
-			File destination = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
-			try {
-				InputStream in = file.getInputstream();
-				OutputStream out = new FileOutputStream(destination);
-				int read = 0;
-			    byte[] bytes = new byte[1024];
-			    while ((read = in.read(bytes)) != -1) {
-			        out.write(bytes, 0, read);}
-					in.close();
-			        out.flush();
-					out.close();
-					
-					} catch (IOException e) {
-				// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			return true;
-			}
-		}
+	
+	
+	
+	
 	
 }

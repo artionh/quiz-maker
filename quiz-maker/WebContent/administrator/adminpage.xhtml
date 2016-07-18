@@ -10,7 +10,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		<title>Welcome #{loginBean.user.username}</title>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
+	
 	<h:body >
+	
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />  
 		</ui:insert>
@@ -19,7 +21,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 	  
 			<p:accordionPanel >
 			
-				<!-- paneli i Kategorive dhe veprimi per te pare pyetjet qe jane ne dispozicion per  nje kategori te caktuar  --> 
+				<!-- paneli i Kategorive dhe veprimi per te pare pyetjet qe jane ne dispozicion per nje kategori te caktuar  --> 
 		  
 				<p:tab title="Categories">
 				
@@ -100,7 +102,11 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 				  </p:dataTable>
 				  
 				</p:tab>
+				
 			</p:accordionPanel>
+			
 		</h:form>
+		
 	</h:body>
+	
 </html>

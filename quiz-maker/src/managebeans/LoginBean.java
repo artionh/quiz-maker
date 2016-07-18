@@ -120,8 +120,6 @@ public class LoginBean {
 		
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
-		username="";
-		password="";
 		return "/login";
 		
 	}
