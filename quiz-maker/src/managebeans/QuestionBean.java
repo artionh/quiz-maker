@@ -1,4 +1,3 @@
-
 package managebeans;
 
 import java.io.File;
@@ -52,6 +51,7 @@ public class QuestionBean implements actions  {
 
 	@PostConstruct
 	public void init() {
+	
 		if(loginBean.getUser().getRoli().getName().equals("admin"))
 		
 		allQuestions = questionDao.getQuestion();
@@ -74,6 +74,7 @@ public class QuestionBean implements actions  {
 	}
 
 	public QuestionDao getQuestionDao() {
+	
 		return questionDao;
 	}
 
@@ -83,14 +84,17 @@ public class QuestionBean implements actions  {
 	}
 
 	public AnswerDao getAnswerDao() {
+	
 		return answerDao;
 	}
 
 	public void setAnswerDao(AnswerDao answerDao) {
+	
 		this.answerDao = answerDao;
 	}
 	
 	public CategoryBean getCategoryBean() {
+	
 		return categoryBean;
 	}
 
@@ -103,22 +107,27 @@ public class QuestionBean implements actions  {
 	}
 
 	public void setLoginBean(LoginBean loginBean) {
+	
 		this.loginBean = loginBean;
 	}
 	
 	public question getQuestion() {
+	
 		return question;
 	}
 	
 	public answer getAnswer() {
+	
 		return answer;
 	}
 	
 	public void setAnswer(answer answer) {
+	
 		this.answer = answer;
 	}
 
 	public void setQuestion(question question) {
+	
 		this.question = question;
 	}
 	
@@ -137,114 +146,188 @@ public class QuestionBean implements actions  {
 	
 	
     public UploadedFile getFile() {
+	
 		return file;
 	}
 
 	public void setFile(UploadedFile file) {
+	
 		this.file = file;
 	}
 	
 
 	public void add(){
-		
-		if(savePhoto()){
-		
-		question.setName(question.getName());
-		
-		question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
-		
-		question.setUseri(loginBean.getUser());
-		
-		questionDao.add(question);
-		
-		answer.setQuestion(question);
-		
-		answerDao.add(answer);
-		
-		question = new question();
-		
-		answer = new answer();
-		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully added"));
-		
-		categoryBean.setId(0);
-		
-		questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
-		
-		if(loginBean.getUser().getRoli().getName().equals("admin"))
-		
-		allQuestions = questionDao.getQuestion();	
-		} 
-	}
 	
-	public void delete(int question) {
+		if(file != null)	{
+		
+			if(savePhoto())	{
+		
+				question.setName(question.getName());
+		
+				question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+		
+				question.setUseri(loginBean.getUser());
+		
+				questionDao.add(question);
+		
+				answer.setQuestion(question);
+		
+				answerDao.add(answer);
+		
+				question = new question();
+		
+				answer = new answer();
+		
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully added"));
+		
+				categoryBean.setId(0);
+		
+				questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+				
+				if(loginBean.getUser().getRoli().getName().equals("admin"))
+		
+					allQuestions = questionDao.getQuestion();	
+				
+					file=null;
+				} 
+				
+			}
+		
+			else
+			{
+				question.setName(question.getName());
+			
+				question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+			
+				question.setUseri(loginBean.getUser());
+			
+				questionDao.add(question);
+			
+				answer.setQuestion(question);
+			
+				answerDao.add(answer);
+			
+				question = new question();
+			
+				answer = new answer();
+			
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully added"));
+			
+				categoryBean.setId(0);
+			
+				questions = questionDao.getQuestionUser(loginBean.getUser().getId());	
+			
+				if(loginBean.getUser().getRoli().getName().equals("admin"))
+			
+				allQuestions = questionDao.getQuestion();	
+			}
+		}
+	
+		public void delete(int question) {
 		
 		
-		questionDao.delete(question);
+			questionDao.delete(question);
 		
-		questions.remove(questionDao.get(question));
+			questions.remove(questionDao.get(question));
 		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully deleted"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully deleted"));
 		
-		questions = questionDao.getQuestionUser(loginBean.getUser().getId());
+			questions = questionDao.getQuestionUser(loginBean.getUser().getId());
 		
-		if(loginBean.getUser().getRoli().getName().equals("admin"))
+			if(loginBean.getUser().getRoli().getName().equals("admin"))
 		
-		allQuestions = questionDao.getQuestion();	
+			allQuestions = questionDao.getQuestion();	
 		
 		
 		
-	}
+		}
 	
 	public String update(){
-		if (savePhoto())
-		{
-		question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+		
+		if(file!=null){
+			
+			if (savePhoto())
+				{
+				question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
 		   
-		questionDao.update(question);
+				questionDao.update(question);
 			
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
 			
-			question =  new question();
+				question =  new question();
 			
-			categoryBean.setId(0);
-	     
-			questions = questionDao.getQuestionUser(loginBean.getUser().getId()) ;	
-			
-			if(loginBean.getUser().getRoli().getName().equals("admin"))
-			
-			allQuestions = questionDao.getQuestion();
-			
-			if(loginBean.getUser().getRoli().getId()==1)
+				categoryBean.setId(0);
 				
-				return "question";
+				file=null;
+	     
+				questions = questionDao.getQuestionUser(loginBean.getUser().getId()) ;	
+			
+				if(loginBean.getUser().getRoli().getName().equals("admin"))
+			
+					allQuestions = questionDao.getQuestion();
+			
+				if(loginBean.getUser().getRoli().getId()==1)
+				
+					return "question";
 			
 				else
 					
-			return "userpage";}
+					return "userpage";}
+			else
+					
+					return null;
+			}
 		else
-			return null;
-		}
-
-	 public String select(int question) {
-			
-			this.question = questionDao.get(question);
-			
-			List<category> cs = categoryBean.getCategories();
-			
-			for(int i=0; i<cs.size();i++){
+		{
 				
-				if(cs.get(i).getId()==this.question.getCategory().getId()){
+			question.setCategory(categoryBean.getCategoryDao().get(categoryBean.getId()));
+			   
+			questionDao.update(question);
+				
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The question was sucessfully updated"));
+				
+			question =  new question();
+				
+			categoryBean.setId(0);
+		     
+			questions = questionDao.getQuestionUser(loginBean.getUser().getId()) ;	
+				
+			if(loginBean.getUser().getRoli().getName().equals("admin"))
+				
+				allQuestions = questionDao.getQuestion();
+				
+			if(loginBean.getUser().getRoli().getId()==1)
 					
-					category c = cs.get(i);
-					
-					cs.set(i,  categoryBean.getCategories().get(0));
-					
-					cs.set(0, c);
-				}	
+				return "question";
+				
+			else
+				
+				return "userpage";
 			}
 			
-			categoryBean.setCategories(cs);
+		}
+				
+
+	public String select(int question) {
+			
+		this.question = questionDao.get(question);
+			
+		List<category> cs = categoryBean.getCategories();
+			
+		for(int i=0; i<cs.size();i++){
+				
+			if(cs.get(i).getId()==this.question.getCategory().getId()){
+					
+				category c = cs.get(i);
+					
+				cs.set(i,  categoryBean.getCategories().get(0));
+					
+				cs.set(0, c);
+			}	
+				
+		}
+			
+		categoryBean.setCategories(cs);
 			
 			categoryBean.setId(this.question.getCategori().getId());
 			
@@ -252,12 +335,12 @@ public class QuestionBean implements actions  {
 				
 				return "questionUpdateAdmin";
 			
-				else
-				
+			else
 					
-			return "questionUpdate";
+				return "questionUpdate";
 				
 		}
+		
 
 	public String view(int question){
 		
@@ -273,33 +356,35 @@ public class QuestionBean implements actions  {
 		
 		return "adminpage";
 	}
+	
 	public boolean savePhoto(){
 		
-if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
+		if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
 			{
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Change the name of the file or choose another!"));
 				return false;
 			}
-else{
+		else{
 
-question.setImage(file.getFileName());
+		question.setImage(file.getFileName());
 			File destination = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
 			try {
 				InputStream in = file.getInputstream();
 				OutputStream out = new FileOutputStream(destination);
 				int read = 0;
-			       byte[] bytes = new byte[1024];
-			        while ((read = in.read(bytes)) != -1) {
-			             out.write(bytes, 0, read);}
-			            in.close();
-			            out.flush();
-			          out.close();
-			} catch (IOException e) {
+			    byte[] bytes = new byte[1024];
+			    while ((read = in.read(bytes)) != -1) {
+			        out.write(bytes, 0, read);}
+					in.close();
+			        out.flush();
+					out.close();
+					
+					} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+						e.printStackTrace();
+					}
 			return true;
+			}
 		}
-	}
 	
 }
