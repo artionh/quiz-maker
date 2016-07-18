@@ -17,7 +17,7 @@
 		</ui:insert>
 		
 		<h:form>
-			<h:graphicImage library="image" name ="#{questionBean.question.image}" alt="No image" style="width: 450px" rendered="#{not empty questionBean.question.image}"/>
+			<h:graphicImage library="image" name ="#{questionBean.question.image}" rendered="#{not empty questionBean.question.image}" width="450"/>
 			<p:panelGrid  columns="2" cellpadding="5">
 			
 				<h:outputLabel for="name" value="Question Name"></h:outputLabel>
