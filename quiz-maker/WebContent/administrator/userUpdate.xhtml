@@ -17,7 +17,7 @@
 				<ui:include src="header.xhtml" />
 			</ui:insert>
 		
-			<div style="text-align:center; margin-right: 350px;margin-left: 179px">
+			<div style=" margin-left: 550px; margin-top: 99px;">
 			
 				<h:form>
 				
@@ -26,8 +26,8 @@
 					<p:tab >
 						<h:panelGrid columns="1"  cellpadding="1">
 							<p:outputLabel value="Username:" for="username" />
-							<h:inputText id="username" value="#{userBean.user.username}" required="true" requiredMessage="*required" />
-							<p:message for="username" />
+							<p:outputLabel id="username" value="#{userBean.user.username}" />
+							
 							<p:outputLabel value="Password:" for="password" />
 							<h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   /> 
 							<p:message for="password" />

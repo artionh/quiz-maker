@@ -19,13 +19,13 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		
 		<!-- Shtimi i nje kategoriete re -->
 		
-		<div style="text-align:center; margin-right: 350px;margin-left: 179px">
+		<div style="text-align:center; margin-right:500px;margin-left: 500px">
 			<h:form>
 			 <p:growl id="growl"  showDetail="true"/>
 				<p:tab >
 					<p:panel header="Add a category" >
 						<h:panelGrid columns="1"  cellpadding="1">
-							<p:outputLabel value="Name:" for="category" />
+							<p:outputLabel value="Name:" for="category" style="text-align:left"/>
 							<h:inputText id="category" required="true" value="#{categoryBean.category.name}" requiredMessage="*required" /> 
 							<p:message for="category" />
 							<h:commandButton actionListener="#{categoryBean.add}" value="Add" process="@this @form" update="j_idt35:j_idt36:categoryTable @form"/>
@@ -49,10 +49,10 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 						</p:column>  
 						
 						<p:column headerText="Action" >    
-							<p:commandLink value= "Update" ajax="false" process="@this" action="#{categoryBean.select(category.id)}" /> 
+							<p:commandLink value= "Edit" ajax="false" process="@this" action="#{categoryBean.select(category.id)}" style="color:#3888b7;; text-shadow: 2px 2px 2px gray; font-size:25px"/> 
 							<p:growl id="message" showDetail="true" > </p:growl>
 							| |
-							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{categoryBean.delete(category.id)}" >
+							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{categoryBean.delete(category.id)}" style="color:#cd0a0a;; text-shadow: 2px 2px 2px gray; font-size:25px" >
 								<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
 							</p:commandLink>
 							<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">

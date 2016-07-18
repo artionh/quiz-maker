@@ -17,46 +17,49 @@
 		</ui:insert>
 		
 		<!-- Shtimi i nje pyetjeje nga useri -->
-		<div style="text-align:center; margin-right: 300px;">
+		<div style=" margin-left: 200px; margin-right: 400px;">
 			<h:form class="forma" enctype="multipart/form-data" >
-			 <p:growl id="growl"  showDetail="true"/>
+				<p:growl id="growl"  showDetail="true"/>
 				<p:tab >
 					<p:panel header="Add a question" >
 						
-						  <p:outputLabel value="Upload a picture" for="fileupload" />
-							<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple" />
-							<p:separator />
+						<p:outputLabel value="Upload a picture" for="fileupload" style="width:200px; text-align:left"/>
+						<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" />
+						<p:message for="fileupload" />
+						<p:separator />
 					
-							<p:outputLabel value="Category:" for="categ" />
-							<p:selectOneMenu id="categ" required="true" value="#{categoryBean.id}"  requiredMessage="*required" >
-								<f:selectItem itemLabel="Select One" itemValue="" />
-								<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
-							</p:selectOneMenu>  
-							<p:message for="categ" />
-							<p:separator />
+						<p:outputLabel value="Category:" for="categ" />
+						<p:selectOneMenu id="categ" required="true" value="#{categoryBean.id}"  requiredMessage="*required" >
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
+						</p:selectOneMenu>  
+						<p:message for="categ" />
+						<p:separator />
 							
-							<h:panelGrid columns="3" columnClasses="label, value,message" cellpadding="1">
-							<p:outputLabel value="Description:" for="question" />
-							<h:inputText id="question" required="true" value="#{questionBean.question.name}" requiredMessage="*required" /> 
-							<p:message for="question" />
+						<h:panelGrid columns="3" columnClasses="label, value,message" cellpadding="1">
+						<p:outputLabel value="Description:" for="question" />
+						<h:inputText id="question" required="true" value="#{questionBean.question.name}" requiredMessage="*required" /> 
+						<p:message for="question" />
 							
-							<p:outputLabel value="True " for="answer" />
-							<h:inputText id="answer" required="true" value="#{questionBean.answer.true1}"  requiredMessage="*required"  /> 
-							<p:message for="answer" />
+						<p:outputLabel value="True" for="answer" />
+						<h:inputText id="answer" required="true" value="#{questionBean.answer.true1}"  requiredMessage="*required"  /> 
+						<p:message for="answer" />
 							
-							<p:outputLabel value="False " for="answer1" />
-							<h:inputText id="answer1" required="true" value="#{questionBean.answer.false1}" requiredMessage="*required" p:placeHolder="Correct answer here"   /> 
-							<p:message for="answer1" />
+						<p:outputLabel value="False" for="answer1" />
+						<h:inputText id="answer1" required="true" value="#{questionBean.answer.false1}" requiredMessage="*required" p:placeHolder="Correct answer here"   /> 
+						<p:message for="answer1" />
 							
-							<p:outputLabel value="False " for="answer2" />
-							<h:inputText id="answer2" required="true" value="#{questionBean.answer.false2}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
-							<p:message for="answer2" />
+						<p:outputLabel value="False" for="answer2" />
+						<h:inputText id="answer2" required="true" value="#{questionBean.answer.false2}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
+						<p:message for="answer2" />
 							
-							 <p:outputLabel value="False " for="answer3" />
-							<h:inputText id="answer3" required="true" value="#{questionBean.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
-							<p:message for="answer3" />
+						<p:outputLabel value="False" for="answer3" />
+						<h:inputText id="answer3" required="true" value="#{questionBean.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
+						<p:message for="answer3" />
 						</h:panelGrid>
-						<p:commandButton ajax="false " value="add" actionListener="#{questionBean.add}" process="@this @form" update=" @form"/>	
+						
+						<p:commandButton ajax="false " value="add" actionListener="#{questionBean.add}" process="@this @form" update="j_idt74:j_idt75:j_idt76 @form" style="text-align:center; left: 189px;"/>	
+						
 					</p:panel>
 				</p:tab>
 				
@@ -67,7 +70,7 @@
 				<p:watermark value="wrong answer" for="answer3"  />
 			</h:form>
 		</div>
-		
+		<p:spacer height="50" />
 		
 		<h:form >
 			<!--Listimi i te gjitha pyetjeve te userit -->
@@ -88,10 +91,10 @@
 						</p:column>
 						
 						<p:column headerText="Action" >  
-							<p:commandLink value= "Edit" ajax="false" process="@this" action="#{questionBean.select(question.id)}" /> 
+							<p:commandLink value= "Edit" ajax="false" process="@this" action="#{questionBean.select(question.id)}"  style="color:#3888b7; text-shadow: 2px 2px 2px gray; font-size:25px"  /> 
 							| |
 							<p:growl id="message" showDetail="true" />
-							<p:commandLink value= "Delete" ajax="false" process="@this" update="message" action="#{questionBean.delete(question.id)}" >
+							<p:commandLink value= "Delete" ajax="false" process="@this" update="message" action="#{questionBean.delete(question.id)}" style="color:#cd0a0a;; text-shadow: 2px 2px 2px gray; font-size:25px" >
 								<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
 							</p:commandLink>
 							<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">
@@ -99,7 +102,7 @@
 								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>
 						</p:column> 
-						
+						  
 					</p:dataTable>
 				</p:tab>   
 			</p:accordionPanel>

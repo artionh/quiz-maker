@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -281,7 +282,7 @@ public class QuestionBean implements actions  {
 				return null;
 			}
 			else{
-				if((question.getAnswer().equals(question.getAnswer().getFalse1())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse2())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse2()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse2().equals(question.getAnswer().getFalse3()))){
+				if((question.getAnswer().getTrue1().equals(question.getAnswer().getFalse1())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse2())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse2()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse2().equals(question.getAnswer().getFalse3()))){
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "The answered you entered should not be the same ! Reset! "));
 					return null;
 				
@@ -342,7 +343,7 @@ public class QuestionBean implements actions  {
 		}
 		else
 		{
-			if( (question.getAnswer().equals(question.getAnswer().getFalse1())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse2())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse2()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse2().equals(question.getAnswer().getFalse3()))){
+			if( (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse1())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse2())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse2()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse2().equals(question.getAnswer().getFalse3()))){
 				
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "The answered you entered should not be the same ! Reset! "));
 				return null;
@@ -378,10 +379,17 @@ public class QuestionBean implements actions  {
 					return "userpage";
 			}
 		}
+		
 	}
 	
 	public void delete(int question) {
-			
+		
+		if(questionDao.get(question).getImage()!= null)
+		{
+			File file = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/quiz-maker/WebContent/resources/image/"+questionDao.get(question).getImage());
+		file.delete();
+		}
+		
 		questionDao.delete(question);
 		
 		questions.remove(questionDao.get(question));

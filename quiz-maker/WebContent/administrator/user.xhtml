@@ -18,7 +18,7 @@
 			<ui:include src="header.xhtml" />
 		</ui:insert>
 		<!-- Shtimi i nje urseri te ri  -->
-		<div style="text-align:center; margin-right: 350px;margin-left: 179px">
+		<div style="text-align:center; margin-right:500px;margin-left: 500px">
 			<h:form>
 			 <p:growl id="growl"  showDetail="true"/>
 				<p:tab >
@@ -52,10 +52,10 @@
 							<h:outputText value="#{user.username}"/>
 						</p:column>  
 						<p:column headerText="Action" >    
-							<p:commandLink value= "Update" ajax="false" process="@this" action="#{userBean.select(user.id)}" /> 
+							<p:commandLink value= "Edit" ajax="false" process="@this" action="#{userBean.select(user.id)}" style="color:#3888b7;; text-shadow: 2px 2px 2px gray; font-size:25px" /> 
 							<p:growl id="message" showDetail="true" > </p:growl>
 							| |
-							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{userBean.delete(user.id)}" >
+							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{userBean.delete(user.id)}" style="color:#cd0a0a;; text-shadow: 2px 2px 2px gray; font-size:25px">
 								<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
 							</p:commandLink>
 							<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">
