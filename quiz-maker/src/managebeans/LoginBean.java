@@ -120,7 +120,7 @@ public class LoginBean {
 		
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
-		return "/login";
+		return "/login?faces-redirect=true";
 		
 	}
 	

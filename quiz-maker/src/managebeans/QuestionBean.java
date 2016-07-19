@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -456,4 +455,12 @@ public class QuestionBean implements actions  {
 		
 		return "adminpage";
 	}	
+	public String getPage(){
+		question = new question();
+		categoryBean.setId(0);
+		if(loginBean.getUser().getId()==1)
+			return "question";
+		else
+			return "userpage";
+	}
 }
