@@ -96,11 +96,16 @@ public class UserBean implements actions {
 		
 		if((loginBean.getUser().getPassword().equals(this.password)))
 			{	
+			if((loginBean.getUser().getPassword().length()>=5)||(loginBean.getUser().getPassword().equals("password")||(loginBean.getUser().getPassword().equals(loginBean.getUser().getUsername())))){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "The password you set is not allowed or too weak, please try another! "));
+				
+			}
+			else{
 			loginBean.getUser().setPassword(newPassword);
 			    
 			userDao.update(loginBean.getUser());
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The password was sucessfully changed! "));
-			
+			}
 			}
 			else
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The Old password you enter doesnt match the password"));
@@ -112,10 +117,17 @@ public class UserBean implements actions {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn!", "This username exist . Try another."));
 		}
 		else{
+			if((loginBean.getUser().getPassword().length()>=5)||(loginBean.getUser().getPassword().equals("password"))){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "The password you set is not allowed or too weak, please try another! "));
+				
+			}
+			
+			else{
 		user.setRoli(userDao.setRoli(2));
 		userDao.add(user);
 		user = new entities.user();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Attention! ", "Your account was sucessfully created"));
+		}
 		}
 	}
 
@@ -132,6 +144,11 @@ public class UserBean implements actions {
 	}
 	
 	public String update(){
+		if((loginBean.getUser().getPassword().length()>=5)||(loginBean.getUser().getPassword().equals("password")||(loginBean.getUser().getPassword().equals(loginBean.getUser().getUsername())))){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "The password you set is not allowed or too weak, please try another! "));
+			return null;
+		}
+		else{
 		
 		userDao.update(user);
 		
@@ -139,7 +156,7 @@ public class UserBean implements actions {
 		
 		user = new entities.user();
 		
-	return "user";	
+	return "user";	}
 	}
 	
 	public String select (int user){
