@@ -28,7 +28,7 @@
 							<h:inputText id="username" value="#{userBean.user.username}" required="true" requiredMessage="*required" />
 							<p:message for="username" />
 							<p:outputLabel value="Password:" for="password" />
-							<h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   />
+							<p:password id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   />
 							<p:message for="password" />
 							<h:commandButton actionListener="#{userBean.add}" value="Add" process="@this @form" update="j_idt40:j_idt41:userTable forma" />
 							</h:panelGrid>

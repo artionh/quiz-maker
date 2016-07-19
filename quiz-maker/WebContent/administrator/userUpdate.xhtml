@@ -29,7 +29,7 @@
 							<p:outputLabel id="username" value="#{userBean.user.username}" />
 							
 							<p:outputLabel value="Password:" for="password" />
-							<h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   /> 
+							<p:password id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   /> 
 							<p:message for="password" />
 							<h:commandButton action="#{userBean.update}" value="Update"  /> </h:panelGrid>
 					</p:tab>
