@@ -10,7 +10,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import daos.CategoryDao;
- 
 import entities.category;
 
 
@@ -148,5 +147,9 @@ public class CategoryBean implements actions {
 		return "adminpage";
 		 
 	 }
+	 public String getPage(){
+			category = new category();
+			return "category?faces-redirect=true";
+		}
 	
 }

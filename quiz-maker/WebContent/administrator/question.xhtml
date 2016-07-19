@@ -31,11 +31,12 @@
 						<p:separator />
 					
 						<p:outputLabel value="Category:" for="categ" />
-						<p:selectOneMenu id="categ" required="true" value="#{categoryBean.id}"  requiredMessage="*required" >
+						<p:selectOneMenu id="categ" required="true" value="#{categoryBean.id}"  requiredMessage="*required"  >
 							<f:selectItem itemLabel="Select One" itemValue="" />
 							<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
 						</p:selectOneMenu>  
 						<p:message for="categ" />
+						
 						<p:separator />
 							
 						<h:panelGrid columns="3" columnClasses="label, value,message" cellpadding="1">

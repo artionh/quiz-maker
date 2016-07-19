@@ -123,5 +123,20 @@ public class LoginBean {
 		return "/login?faces-redirect=true";
 		
 	}
+	public String deactivateAccount(){
+		if(user.getPassword().equals(password)){
+			userDao.delete(user.getId());
+			HttpSession session = SessionUtils.getSession();
+			session.invalidate();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Your account was sucessfully deactivated!"));
+			
+			return "/login?faces-redirect=true";
+	}
+		else
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Please enter you password"));
+		return null;
+			
+		
+	}
 	
 }

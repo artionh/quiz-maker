@@ -157,7 +157,6 @@ public class QuizBean {
 				String[] m = {s1,s2,s3,s4};
 				m = randomize(m);
 				question q = questions.get(i);
-				System.out.println(q.getName());
 				hm.put(q, m);
 			}
 		}

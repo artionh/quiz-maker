@@ -96,7 +96,7 @@ public class UserBean implements actions {
 		
 		if((loginBean.getUser().getPassword().equals(this.password)))
 			{	
-			if((loginBean.getUser().getPassword().length()>=5)||(loginBean.getUser().getPassword().equals("password")||(loginBean.getUser().getPassword().equals(loginBean.getUser().getUsername())))){
+			if((loginBean.getUser().getPassword().length()<=5)||(loginBean.getUser().getPassword().equals("password")||(loginBean.getUser().getPassword().equals(loginBean.getUser().getUsername())))){
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "The password you set is not allowed or too weak, please try another! "));
 				
 			}
@@ -105,6 +105,8 @@ public class UserBean implements actions {
 			    
 			userDao.update(loginBean.getUser());
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The password was sucessfully changed! "));
+			newPassword = null;
+			
 			}
 			}
 			else
@@ -117,7 +119,7 @@ public class UserBean implements actions {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn!", "This username exist . Try another."));
 		}
 		else{
-			if((loginBean.getUser().getPassword().length()>=5)||(loginBean.getUser().getPassword().equals("password"))){
+			if((user.getPassword().length()<=5)||(user.getPassword().equals("password"))){
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "The password you set is not allowed or too weak, please try another! "));
 				
 			}
@@ -126,7 +128,7 @@ public class UserBean implements actions {
 		user.setRoli(userDao.setRoli(2));
 		userDao.add(user);
 		user = new entities.user();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Attention! ", "Your account was sucessfully created"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO! ", "Your account was sucessfully created"));
 		}
 		}
 	}
@@ -144,7 +146,7 @@ public class UserBean implements actions {
 	}
 	
 	public String update(){
-		if((loginBean.getUser().getPassword().length()>=5)||(loginBean.getUser().getPassword().equals("password")||(loginBean.getUser().getPassword().equals(loginBean.getUser().getUsername())))){
+		if((user.getPassword().length()<=5)||(user.getPassword().equals("password"))){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "The password you set is not allowed or too weak, please try another! "));
 			return null;
 		}
@@ -180,7 +182,10 @@ public class UserBean implements actions {
 		
 		return "adminpage";
 	}
-	
+	public String getPage(){
+		user = new entities.user();
+		return "user?faces-redirect=true";
+	}
 	
     
 }

@@ -160,8 +160,8 @@ public class QuestionBean implements actions  {
 		
 		if(file.getSize() != 0){
 			
-			if (new File("C:/Users/iNTECO/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
-			
+			if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
+				
 			{
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Change the name of the file or choose another!"));
 			}
@@ -176,7 +176,7 @@ public class QuestionBean implements actions  {
 				
 					question.setImage(file.getFileName());
 					System.out.println(file.getFileName());
-					File destination = new File("C:/Users/iNTECO/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
+					File destination = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
 				
 					try {
 					
@@ -275,14 +275,14 @@ public class QuestionBean implements actions  {
 		if(file.getSize() != 0 ){
 			
 			
-			if (new File("C:/Users/iNTECO/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
+			if (new File("C:/Users/CCS/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName()).exists())
 			{
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Change the name of the file or choose another!"));
 				return null;
 			}
 			else{
 				if((question.getAnswer().getTrue1().equals(question.getAnswer().getFalse1())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse2())) || (question.getAnswer().getTrue1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse2()))||(question.getAnswer().getFalse1().equals(question.getAnswer().getFalse3()))||(question.getAnswer().getFalse2().equals(question.getAnswer().getFalse3()))){
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "The answered you entered should not be the same ! Reset! "));
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Warning", "The answered you entered should not be the same ! Reset! "));
 					return null;
 				
 				}
@@ -291,7 +291,7 @@ public class QuestionBean implements actions  {
 				
 					question.setImage(file.getFileName());
 				
-					File destination = new File("C:/Users/iNTECO/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
+					File destination = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/WebContent/resources/image", file.getFileName());
 					try
 					{
 						InputStream in = file.getInputstream();
@@ -385,7 +385,7 @@ public class QuestionBean implements actions  {
 		
 		if(questionDao.get(question).getImage()!= null)
 		{
-			File file = new File("C:/Users/iNTECO/git/quiz-maker/quiz-maker/WebContent/resources/image/"+questionDao.get(question).getImage());
+			File file = new File("C:/Users/CCS/git/quiz-maker/quiz-maker/WebContent/resources/image/"+questionDao.get(question).getImage());
 		file.delete();
 		}
 		
@@ -454,12 +454,14 @@ public class QuestionBean implements actions  {
 		question = new question();
 		
 		return "adminpage";
-	}	
+	}
+	
 	public String getPage(){
 		question = new question();
 		categoryBean.setId(0);
-		if(loginBean.getUser().getId()==1)
-			return "question";
+		answer = new answer();
+		if(loginBean.getUser().getRoli().getId()==1)
+			return "question?faces-redirect=true";
 		else
 			return "userpage";
 	}

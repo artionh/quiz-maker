@@ -17,15 +17,19 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 			<ui:include src="user-header.xhtml" />
 		</ui:insert>
 		
-		<p:spacer height="50" />
+		<p:spacer height="20" />
+		
 		<h:form>
+		
 			<p:commandLink id="changePassword"  >
 				<h:outputText value="1.Change your password" />
 			</p:commandLink>
+			
 			<p:overlayPanel id="moviePanel" for="changePassword" hideEffect="fade" dynamic="true">
+			
 			<!-- Password change -->
+			
 				<p:messages id="messages" showDetail="true" autoUpdate="true" />  
-				
 				<h:panelGrid columns="1" id="matchGrid" cellpadding="5">
 				
 					<h:outputLabel for="oldPwd" value="Old Password: *" /> 
@@ -44,6 +48,31 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 				<p:commandButton update="matchGrid messages" value="Save" action="#{userBean.changePassword}"/>
 				
 			</p:overlayPanel>
+			<p:spacer height="100" />
+			<p:separator />
+			
+			
+			<p:commandLink id="deactivateAccount"  >
+				<h:outputText value="1.Deactivate your account" />
+			</p:commandLink>
+			
+			<p:overlayPanel id="moviePanel1" for="deactivateAccount" hideEffect="fade" dynamic="true">
+			
+			<p:messages id="messages1" showDetail="true" autoUpdate="true" /> 
+			
+			<!-- Deactivate account-->
+				
+				<h:panelGrid columns="1" id="matchGrid1" cellpadding="5">
+					
+					<h:outputLabel for="password" value="Confirm your password *" />
+					<p:password id="password" value="#{loginBean.password}" label="Password" required="true" />
+					
+				</h:panelGrid>
+				
+				<p:commandButton update="matchGrid1 messages1" value="Deactivate" action="#{loginBean.deactivateAccount}"/>
+				
+			</p:overlayPanel>
+			
 		</h:form>
 		
 		<p:spacer height="300" />
