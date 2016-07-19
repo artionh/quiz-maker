@@ -18,27 +18,28 @@
 			<ui:include src="header.xhtml" />
 		</ui:insert>
 		<!-- Shtimi i nje urseri te ri  -->
-		<h:form class="forma">
-			<table >
-				<tr>
-					<td><label >Add Username</label></td>
-					<td><h:inputText id="username" value="#{userBean.user.username}" required="true" requiredMessage="*required" /> </td>
-					<td colspan="2"><h:message for="username" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td><label >Add Password</label></td>
-					<td> <h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   /> </td>
-					<td colspan="2"><h:message for="password" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><h:commandButton action="#{userBean.add}" value="Add" process="@this @form" update="j_idt40:j_idt41:userTable forma" /></td>
-				</tr>
-			</table>
-		<p:watermark value="new username" for="username"  />
-		<p:watermark value="new password" for="password"  />
- 
-		</h:form>
+		<div style="text-align:center; margin-right:500px;margin-left: 500px">
+			<h:form>
+			 <p:growl id="growl"  showDetail="true"/>
+				<p:tab >
+					<p:panel header="Add a user" >
+							<h:panelGrid columns="1"  cellpadding="1">
+							<p:outputLabel value="Username:" for="username" />
+							<h:inputText id="username" value="#{userBean.user.username}" required="true" requiredMessage="*required" />
+							<p:message for="username" />
+							<p:outputLabel value="Password:" for="password" />
+							<h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   />
+							<p:message for="password" />
+							<h:commandButton actionListener="#{userBean.add}" value="Add" process="@this @form" update="j_idt40:j_idt41:userTable forma" />
+							</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				
+				<p:watermark value="Enter the username" for="username"  />
+				
+				
+			</h:form>
+		</div>
 		
 		<br></br>
      
@@ -51,10 +52,10 @@
 							<h:outputText value="#{user.username}"/>
 						</p:column>  
 						<p:column headerText="Action" >    
-							<p:commandLink value= "Update" ajax="false" process="@this" action="#{userBean.select(user.id)}" /> 
+							<p:commandLink value= "Edit" ajax="false" process="@this" action="#{userBean.select(user.id)}" style="color:#3888b7;; text-shadow: 2px 2px 2px gray; font-size:25px" /> 
 							<p:growl id="message" showDetail="true" > </p:growl>
 							| |
-							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{userBean.delete(user.id)}" >
+							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{userBean.delete(user.id)}" style="color:#cd0a0a;; text-shadow: 2px 2px 2px gray; font-size:25px">
 								<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
 							</p:commandLink>
 							<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">
@@ -67,7 +68,9 @@
 			</p:accordionPanel>
 			
 		</h:form>
-		
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
 	</h:body>
 
 </html>	

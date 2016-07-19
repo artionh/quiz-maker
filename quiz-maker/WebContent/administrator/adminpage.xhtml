@@ -10,9 +10,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		<title>Welcome #{loginBean.user.username}</title>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
-
+	
 	<h:body >
- 
+	
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />  
 		</ui:insert>
@@ -21,72 +21,92 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 	  
 			<p:accordionPanel >
 			
-			<!-- paneli i Kategorive dhe veprimi per te pare pyetjet qe jane ne dispozicion per  nje kategori te caktuar  --> 
-	  
-			<p:tab title="Categories">
-			
-				<p:dataTable  id="categoryTable" var="category" value="#{categoryBean.categories}" >
-					<p:column headerText="Name">
-						<h:outputText value="#{category.name}"/>
-					</p:column>   
-					<p:column headerText="Action" >       	
-						<p:commandButton value="View Questions" icon="ui-icon-link"  action="#{categoryBean.view(category.id)}" >
-							<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}"  />
-						</p:commandButton>
-					</p:column>   
-				</p:dataTable>
-				
-			</p:tab>
-			
-			<!--  paneli i Userave dhe veprimi per te pare pyetjet e nje useri te caktuar -->
-			
-			<p:tab title="users" style="background:red">
-				<p:dataTable var="user" value="#{userBean.users}">
-					<p:column headerText="UserName">
-						<h:outputText value="#{user.username}"/>
-					</p:column>  
-					<p:column> 
-						<p:commandButton value="View Questions" icon="ui-icon-link" action="#{userBean.view(user.id)}">
-							<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}"  />
-						</p:commandButton>
-					</p:column>   
-				</p:dataTable>
-			</p:tab>
+				<!-- paneli i Kategorive dhe veprimi per te pare pyetjet qe jane ne dispozicion per nje kategori te caktuar  --> 
 		  
-			   
+				<p:tab title="Categories">
+				
+					<p:dataTable  id="categoryTable" var="category" value="#{categoryBean.categories}" >
+						
+						<p:column headerText="Name">
+							<h:outputText value="#{category.name}"/>
+						</p:column>   
+						
+						<p:column headerText="Action" >       	
+							<p:commandButton value="View Questions" icon="ui-icon-link"  action="#{categoryBean.view(category.id)}" >
+								<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}"  />
+							</p:commandButton>
+						</p:column>   
+					
+					</p:dataTable>
+					
+				</p:tab>
+				
+				<!--  paneli i Userave dhe veprimi per te pare pyetjet e nje useri te caktuar -->
+				
+				<p:tab title="users" style="background:red">
+				
+					<p:dataTable var="user" value="#{userBean.users}">
+					
+						<p:column headerText="UserName">
+							<h:outputText value="#{user.username}"/>
+						</p:column>
+						
+						<p:column> 
+							<p:commandButton value="View Questions" icon="ui-icon-link" action="#{userBean.view(user.id)}">
+								<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}"  />
+							</p:commandButton>
+						</p:column>  
+						
+					</p:dataTable>
+					
+				</p:tab>
+			  
+				   
+				
+				<!--  paneli i Pyetjeve  dhe klikimi  per te pare pyetjet e nje useri te caktuar dhe fshirja e tyre nga administratori   -->
+				
+				<p:tab title="Questions" >
+				
+					<p:dataTable var="question" value="#{questionBean.allQuestions}">
+					
+						<p:column headerText="Description">
+							<h:outputText value="#{question.name}"/>
+						</p:column>  
+						
+						<p:column headerText="Category">
+							<h:outputText value="#{question.category.name}"/>
+						</p:column>
+						
+						<p:column headerText="Data">
+							<h:outputText value="#{question.date}"/>
+						</p:column>
+						
+						<p:column headerText="UserName">
+							<h:outputText value="#{question.useri.username}"/>
+						</p:column>
+						
+						<p:column headerText="Action"> 
+							<p:commandButton value="View Question" icon="ui-icon-link" action="#{questionBean.view(question.id)}" >
+								<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}"  />
+							</p:commandButton>
+							<p:growl id="message" showDetail="true" > </p:growl>
+							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{questionBean.delete(question.id)}" update="j_idt28:j_idt29:j_idt46" >
+								<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="fa fa-book" />
+							</p:commandLink>
+							<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form j_idt28:j_idt29:j_idt46">
+								<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:column> 
+						
+				  </p:dataTable>
+				  
+				</p:tab>
+				
+			</p:accordionPanel>
 			
-			<!--  paneli i Pyetjeve  dhe klikimi  per te pare pyetjet e nje useri te caktuar dhe fshirja e tyre nga administratori   -->
-			
-			<p:tab title="Questions" >
-				<p:dataTable var="question" value="#{questionBean.allQuestions}">
-					<p:column headerText="Description">
-						<h:outputText value="#{question.name}"/>
-					</p:column>  
-					<p:column headerText="Category">
-						<h:outputText value="#{question.category.name}"/>
-					</p:column>
-					<p:column headerText="Data">
-						<h:outputText value="#{question.date}"/>
-					</p:column>
-					<p:column headerText="UserName">
-						<h:outputText value="#{question.useri.username}"/>
-					</p:column>
-					<p:column> 
-						<p:commandButton value="View Question" icon="ui-icon-link" action="#{questionBean.view(question.id)}" >
-							<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}"  />
-						</p:commandButton>
-						<p:growl id="message" showDetail="true" > </p:growl>
-						<p:commandLink value= "Delete" ajax="false" process="@this" action="#{questionBean.delete(question.id)}" update="j_idt28:j_idt29:j_idt46" >
-							<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="fa fa-book" />
-						</p:commandLink>
-						<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form j_idt28:j_idt29:j_idt46">
-							<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-						</p:confirmDialog>
-					</p:column>   
-			  </p:dataTable>
-			</p:tab>
-		  </p:accordionPanel>
 		</h:form>
+		
 	</h:body>
+	
 </html>

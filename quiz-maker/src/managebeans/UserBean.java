@@ -28,6 +28,8 @@ public class UserBean implements actions {
 	
 	@ManagedProperty(value = "#{loginBean}")
 	private LoginBean loginBean;
+	
+	
 
 	@PostConstruct
 	public void init() {
@@ -81,7 +83,14 @@ public class UserBean implements actions {
 		this.newPassword = newPassword;
 	}
 
+	
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
 
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
+	}
 
 	public void changePassword(){
 		
@@ -90,31 +99,12 @@ public class UserBean implements actions {
 			loginBean.getUser().setPassword(newPassword);
 			    
 			userDao.update(loginBean.getUser());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The password was sucessfully changed! "));
 			
-			addMessage("Privacy Issue","The password was successfully changed");
 			}
 			else
-			
-				
-				addMessage("Error","The Old password you enter doesnt match the password");	
-		
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The Old password you enter doesnt match the password"));
 	
-	}
-	
-    public void addMessage(String summary,String details){
-    	
-    	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,summary,details);
-    	
-    	FacesContext.getCurrentInstance().addMessage(null, message);
-    	
-    }
-
-	public LoginBean getLoginBean() {
-		return loginBean;
-	}
-
-	public void setLoginBean(LoginBean loginBean) {
-		this.loginBean = loginBean;
 	}
 	
 	public void add(){
@@ -135,12 +125,17 @@ public class UserBean implements actions {
 		
 		userDao.delete(user); 
 		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The account was sucessfully deleted"));
+		
+		
 		users = userDao.getUsers();
 	}
 	
 	public String update(){
 		
 		userDao.update(user);
+		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The account was sucessfully updated"));
 		
 		user = new entities.user();
 		

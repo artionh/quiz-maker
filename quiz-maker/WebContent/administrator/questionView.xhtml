@@ -17,7 +17,9 @@
 		</ui:insert>
 		
 		<h:form>
-			<p:panelGrid  columns="2" cellpadding="5">
+		<div style="text-align:center">
+			<h:graphicImage library="image" name ="#{questionBean.question.image}" rendered="#{not empty questionBean.question.image}" width="450"/>
+			<p:panelGrid  columns="2"  style="margin-left: 350px;">
 				<h:outputLabel for="name" value="Question Name"></h:outputLabel>
 				<h:outputLabel for="name" value="#{questionBean.question.name}"></h:outputLabel>
 				<h:outputLabel for="name" value="Question Category"></h:outputLabel>
@@ -29,12 +31,14 @@
 				<h:outputLabel for="name" value="Question True answer"></h:outputLabel>
 				<h:outputLabel for="name" value="#{questionBean.question.answer.true1}"></h:outputLabel>
 			</p:panelGrid>
-			<br></br>
-			<br></br>
-			<br></br>
+			<p:spacer height="50"/>
 			<p:commandLink id="page" action="#{questionBean.turnBack}"> 
-				<h:outputText value="Turn Back"/>
+				<h:outputText value="Turn Back to Dashboard"/>
 			</p:commandLink> 
+			</div>
 		</h:form>
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
 	</h:body>
 </html>

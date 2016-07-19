@@ -18,19 +18,27 @@
 			<ui:include src="header.xhtml" />
 		</ui:insert>
 		
-		<h:form class="forma">
-			<table >
-				<tr>
-					<td><label >Name</label></td>
-					<td> <h:inputText id="username" value="#{categoryBean.category.name}" required="true" requiredMessage="*required" /> </td>
-					<td colspan="2"><h:message for="username" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><h:commandButton action="#{categoryBean.update}" value="Update" process="@this @form" /> </td>
-				</tr>     
-			</table>  
-		</h:form>
+		<div style=" margin-left: 550px; margin-top: 99px;">
+			<h:form>
+			 <p:growl id="growl"  showDetail="true"/>
+				<p:tab >
+					
+							<h:panelGrid columns="1"  cellpadding="1">
+							<p:outputLabel value="Name:" for="category" />
+							<h:inputText id="category" value="#{categoryBean.category.name}" required="true" requiredMessage="*required" />  
+							<p:message for="category" />
+							<h:commandButton action="#{categoryBean.update}" value="Update" process="@this @form" />
+							</h:panelGrid>
+					
+				</p:tab>
+				
+				<p:watermark value="Enter the category Name" for="category"  />
+				
+			</h:form>
+		</div>
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
 		
 	</h:body>
 

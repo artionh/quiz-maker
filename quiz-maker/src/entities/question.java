@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,9 +39,8 @@ public class question  {
 	@OneToOne(mappedBy="question",cascade=CascadeType.ALL)
 	private answer answer;
 	
-	@Lob
-	@Column(name="image",nullable=true,columnDefinition="longblob")
-	private byte[] image;
+	@Column(nullable=true)
+	private String image;
 	
 		
 		public question() {
@@ -102,13 +100,15 @@ public class question  {
 			return category;
 		}
 
-		public byte[] getImage() {
+		public String getImage() {
 			return image;
 		}
 
-		public void setImage(byte[] image) {
+		public void setImage(String image) {
 			this.image = image;
 		}
+
+		
 		
 
 		

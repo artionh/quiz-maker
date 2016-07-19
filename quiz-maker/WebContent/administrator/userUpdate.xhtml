@@ -8,7 +8,6 @@
 
 		<h:head>
 			<title>UserUpdate</title>
-			<style>.error{color:red}</style>
 			<h:outputStylesheet library="css" name="style.css" />
 		</h:head>
 
@@ -18,24 +17,30 @@
 				<ui:include src="header.xhtml" />
 			</ui:insert>
 		
-			<h:form class="forma">
-				<table >
-					<tr>
-						<td><label > Username</label></td>
-						<td> <h:inputText id="username" value="#{userBean.user.username}" required="true" requiredMessage="*required" /> </td>
-						<td colspan="2"><h:message for="username" styleClass="error" /></td>
-					</tr>
-					<tr>
-						<td><label >Password</label></td>
-						<td> <h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   /> </td>
-						<td colspan="2"><h:message for="password" styleClass="error" /></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><h:commandButton action="#{userBean.update}" value="Update"  /> </td>
-					</tr>
-  
-				</table>
-			</h:form>
+			<div style=" margin-left: 550px; margin-top: 99px;">
+			
+				<h:form>
+				
+				 <p:growl id="growl"  showDetail="true"/>
+				 
+					<p:tab >
+						<h:panelGrid columns="1"  cellpadding="1">
+							<p:outputLabel value="Username:" for="username" />
+							<p:outputLabel id="username" value="#{userBean.user.username}" />
+							
+							<p:outputLabel value="Password:" for="password" />
+							<h:inputText id="password" required="true" value="#{userBean.user.password}" requiredMessage="*required"   /> 
+							<p:message for="password" />
+							<h:commandButton action="#{userBean.update}" value="Update"  /> </h:panelGrid>
+					</p:tab>
+					
+				</h:form>
+				
+			</div>
+			
+			<ui:insert name="footer" >
+				<ui:include src="/footer.xhtml" />
+			</ui:insert>
+			
 		</h:body>
 </html>

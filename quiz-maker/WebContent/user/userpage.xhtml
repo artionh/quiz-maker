@@ -7,7 +7,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
 	<h:head>
-		<title>hello #{userBean.user.username}</title>
+		<title>hello #{loginBean.user.username}</title>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 	<h:body >
@@ -15,95 +15,102 @@
 		<ui:insert name="header" >
 			<ui:include src="user-header.xhtml" />
 		</ui:insert>
-		<!-- Shtimi i nje pyetjeje nga useri -->
 		
-		<h:form class="forma" enctype="multipart/form-data" >
-		 <p:fileUpload value="#{questionBean.file}" mode="simple"  />
-			<table >
-			
-				<tr>
-				
-
-					<p:messages autoUpdate="true" />
-					<td><p:outputLabel for="car" value="Category: " /></td>
-					<td><p:selectOneMenu id="car" required="true" value="#{categoryBean.id}"  valueChangeListener="true" requiredMessage="*required">
-						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
+		<!-- Shtimi i nje pyetjeje nga useri -->
+		<div style=" margin-left: 200px; margin-right: 400px;">
+			<h:form class="forma" enctype="multipart/form-data" >
+				<p:growl id="growl"  showDetail="true"/>
+				<p:tab >
+					<p:panel header="Add a question" >
+						
+						<p:outputLabel value="Upload a picture" for="fileupload" style="width:200px; text-align:left"/>
+						<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" />
+						<p:message for="fileupload" />
+						<p:separator />
+					
+						<p:outputLabel value="Category:" for="categ" />
+						<p:selectOneMenu id="categ" required="true" value="#{categoryBean.id}"  requiredMessage="*required" >
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
 						</p:selectOneMenu>  
-					</td>
-					<td colspan="2"><h:message for="question" styleClass="error" /></td>
-				</tr>
-				<tr>     
-					<td><label >Question</label></td>
-					<td> <h:inputText id="question" required="true" value="#{questionBean.question.name}" requiredMessage="*required" /> </td>
-					<td colspan="2"><h:message for="question" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td><label >Answer</label></td>
-					<td> <h:inputText id="answer" required="true" value="#{questionBean.answer.true1}"  requiredMessage="*required"  /> </td>
-					<td colspan="2"><h:message for="answer" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td><label >Answer</label></td>
-					<td> <h:inputText id="answer1" required="true" value="#{questionBean.answer.false1}" requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
-					<td colspan="2"><h:message for="answer1" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td><label >Answer</label></td>
-					<td> <h:inputText id="answer2" required="true" value="#{questionBean.answer.false2}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
-					<td colspan="2"><h:message for="answer2" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td><label >Answer</label></td>
-					<td> <h:inputText id="answer3" required="true" value="#{questionBean.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  style="height:70%" /> </td>
-					<td colspan="2"><h:message for="answer3" styleClass="error" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td> <p:commandButton ajax="false" value="add" actionListener="#{questionBean.add}" process="@this @form" update=" @form"/>  </td>  
-				</tr>
+						<p:message for="categ" />
+						<p:separator />
+							
+						<h:panelGrid columns="3" columnClasses="label, value,message" cellpadding="1">
+						<p:outputLabel value="Description:" for="question" />
+						<h:inputText id="question" required="true" value="#{questionBean.question.name}" requiredMessage="*required" /> 
+						<p:message for="question" />
+							
+						<p:outputLabel value="True" for="answer" />
+						<h:inputText id="answer" required="true" value="#{questionBean.answer.true1}"  requiredMessage="*required"  /> 
+						<p:message for="answer" />
+							
+						<p:outputLabel value="False" for="answer1" />
+						<h:inputText id="answer1" required="true" value="#{questionBean.answer.false1}" requiredMessage="*required" p:placeHolder="Correct answer here"   /> 
+						<p:message for="answer1" />
+							
+						<p:outputLabel value="False" for="answer2" />
+						<h:inputText id="answer2" required="true" value="#{questionBean.answer.false2}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
+						<p:message for="answer2" />
+							
+						<p:outputLabel value="False" for="answer3" />
+						<h:inputText id="answer3" required="true" value="#{questionBean.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
+						<p:message for="answer3" />
+						</h:panelGrid>
+						
+						<p:commandButton ajax="false " value="add" actionListener="#{questionBean.add}" process="@this @form" update="j_idt74:j_idt75:j_idt76 @form" style="text-align:center; left: 189px;"/>	
+						
+					</p:panel>
+				</p:tab>
 				
-			</table>
 				<p:watermark value="Your question" for="question"  />
 				<p:watermark value="Correct answer" for="answer"  />
 				<p:watermark value="wrong answer" for="answer1"  />
 				<p:watermark value="wrong answer" for="answer2"  />
-			    <p:watermark value="wrong answer" for="answer3"  />
-</h:form>
+				<p:watermark value="wrong answer" for="answer3"  />
+			</h:form>
+		</div>
+		<p:spacer height="50" />
 		
-		
-			
 		<h:form >
-		<!--Listimi i te gjitha pyetjeve te userit -->
+			<!--Listimi i te gjitha pyetjeve te userit -->
 			<p:accordionPanel >
 				<p:tab title="Your Questions">
 					<p:dataTable  id="questionTable" var="question" value="#{questionBean.questions}" >
+					
 						<p:column headerText="Description">
 							<h:outputText value="#{question.name}"/>
-						</p:column>   
-						<p:column headerText="Category" >
-							<h:outputText value="#{question.category.name}" />
 						</p:column> 
+						
 						<p:column headerText="Category" >
 							<h:outputText value="#{question.category.name}" />
 						</p:column>
-						<p:column headerText="Action" >    
-							<p:commandLink value= "Update" ajax="false" process="@this" action="#{questionBean.select(question.id)}" /> 
-							<p:growl id="message" showDetail="true" > </p:growl>
-							<p:commandLink value= "Delete" ajax="false" process="@this" action="#{questionBean.delete(question.id)}" >
+						
+						<p:column headerText="Image" >
+							<h:outputText value="#{question.image}" />
+						</p:column>
+						
+						<p:column headerText="Action" >  
+							<p:commandLink value= "Edit" ajax="false" process="@this" action="#{questionBean.select(question.id)}"  style="color:#3888b7; text-shadow: 2px 2px 2px gray; font-size:25px"  /> 
+							| |
+							<p:growl id="message" showDetail="true" />
+							<p:commandLink value= "Delete" ajax="false" process="@this" update="message" action="#{questionBean.delete(question.id)}" style="color:#cd0a0a;; text-shadow: 2px 2px 2px gray; font-size:25px" >
 								<p:confirm message="Are you sure you want to delete it? " header="Confirmation" icon="ui-icon-alert" />
 							</p:commandLink>
 							<p:confirmDialog global="true" showEffect="fade" hidEffect="fade"  update="@form">
 								<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>
-						</p:column>   
+						</p:column> 
+						  
 					</p:dataTable>
 				</p:tab>   
 			</p:accordionPanel>
+		</h:form>
 			
-		</h:form>	
-		
+			<ui:insert name="footer" >
+				<ui:include src="/footer.xhtml" />
+			</ui:insert>	
 	</h:body>
-
-</html>		
+</html>	
+	

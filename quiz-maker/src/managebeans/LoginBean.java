@@ -49,7 +49,10 @@ public class LoginBean {
 		else{
 			
 			setData(user);
-			return "singup";
+			if(user.getRoli().getName().equals("admin"))
+			return "administrator/adminpage";
+			else
+				return "user/userpage";
 		
 		}
 		
@@ -116,10 +119,9 @@ public class LoginBean {
 	public String logout() {
 		
 		HttpSession session = SessionUtils.getSession();
-		
 		session.invalidate();
+		return "/login";
 		
-		return "login.xhtml";
 	}
 	
 }

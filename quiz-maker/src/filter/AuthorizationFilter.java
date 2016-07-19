@@ -40,6 +40,7 @@ public class AuthorizationFilter implements Filter {
 					|| reqURI.indexOf("/user-interface.xhtml") >= 0
 					|| reqURI.indexOf("/singup.xhtml") >= 0 
 					|| reqURI.indexOf("/footer.xhtml") >= 0
+					|| reqURI.indexOf("/about.xhtml")>=0
 					|| (ses != null && ses.getAttribute("username") != null))
 				chain.doFilter(request, response);
 			else

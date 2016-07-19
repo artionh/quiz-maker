@@ -11,7 +11,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 
-	<h:body >
+	<h:body>
  
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />
@@ -39,8 +39,8 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 							<h:outputText value="#{question.useri.username}"/>
 						</p:column> 
 						<p:column headerText="Action" >       	
-							<p:commandButton value="View Questions" icon="ui-icon-extlink" action="#{categoryBean.view(category.id)}" >
-								<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" />
+							<p:commandButton value="View Question" icon="ui-icon-extlink" action="#{questionBean.view(question.id)}" >
+								<p:ajax />
 							</p:commandButton>
 						</p:column>   
 					</p:dataTable>
@@ -48,7 +48,11 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 			</p:accordionPanel>
 			
 		</h:form>
+		<ui:insert name="footer" >
+			<ui:include src="/footer.xhtml" />
+		</ui:insert>
 
  </h:body>
+ 
 
 </html>

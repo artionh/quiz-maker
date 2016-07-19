@@ -3,9 +3,12 @@ package managebeans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
 import daos.CategoryDao;
  
 import entities.category;
@@ -87,20 +90,19 @@ public class CategoryBean implements actions {
 	    	
 	    	categoryDao.add(category);
 	    	
-	    	categories.add(category);
+	    	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The category was sucessfully added"));
 	    	
 	    	category = new category();
 	    	
 	    	categories  = categoryDao.getCategories();
 	    	
-	    	
 	    }
 	 
-	 public void delete(int category){
-	    	
-	    	categories.remove(categoryDao.get(category));	
+	 public void delete(int category){	
 	    	
 	    	categoryDao.delete(category);
+	    	
+	    	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The category was sucessfully deleted"));
 	    	
 	    	categories  = categoryDao.getCategories();
 	    	
@@ -111,11 +113,14 @@ public class CategoryBean implements actions {
 		
 		categoryDao.update(category);
 		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "The category was sucessfully updated"));
+		
+		
 		categories = categoryDao.getCategories();
 		
 		category = new category();
 		
-		return "administrator/category";
+		return "category";
 	}
   
   
@@ -123,7 +128,7 @@ public class CategoryBean implements actions {
 		
 		this.category = categoryDao.get(category);
 		
-		return "administrator/categoryUpdate";
+		return "categoryUpdate";
 		
 	} 
 	
@@ -131,7 +136,7 @@ public class CategoryBean implements actions {
 		 
 		 this.category = categoryDao.get(category);
 		 
-		 return "administrator/categoryQuestions";
+		 return "categoryQuestions";
 		 
 	 }
 	 
@@ -140,7 +145,7 @@ public class CategoryBean implements actions {
 		 
 		 category = new category();
 		 
-		return "administrator/adminpage";
+		return "adminpage";
 		 
 	 }
 	
