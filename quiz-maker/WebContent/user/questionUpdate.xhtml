@@ -23,7 +23,8 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 					<h:panelGrid columns="1" cellpadding="5" >
           					<h:graphicImage library="image" name ="#{questionBean.question.image}" alt="No image" rendered ="#{not empty questionBean.question.image}"/>
 						<p:outputLabel value="Change picture" for="fileupload" />
-						<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple" />
+						<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" />
+						<p:message for="fileupload" />
 						<p:separator />
 					
 						<p:outputLabel value="Category:" for="categ" />
