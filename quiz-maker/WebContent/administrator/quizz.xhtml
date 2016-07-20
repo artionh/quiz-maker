@@ -7,7 +7,9 @@
 	xmlns:p="http://primefaces.org/ui" 
 	xmlns:ui="http://java.sun.com/jsf/facelets" > 
 
-	<h:head></h:head>
+	<h:head>
+		<title>QUIZZ</title>
+	</h:head>
   
 	<h:body >
 		<ui:insert name="header" >
@@ -39,19 +41,23 @@
 						    
 			<p:dialog modal="true" resizable="false" widgetVar="dlg" header="Results" showEffect="clip">
 				<p:panelGrid  id="display" columnClasses="label,value">
+				
 				<f:facet name="header" >
 					<p:column colspan="2"> You archived: #{quizBean.points} points</p:column> 
 				 </f:facet>
+				
 				<p:row> 
 					<p:column> Question</p:column>
 					<p:column>Answer </p:column>
 				</p:row>
+					
 					<ui:repeat var="m" value="#{quizBean.messages.entrySet().toArray()}">
 						<p:row>
 							<p:column>#{m.key.name}</p:column>
 							<p:column>#{m.value}</p:column>
 						</p:row>
 					</ui:repeat>
+					
 					<p:row>
 						<p:column colspan="2" style="text-align:center"><p:commandButton value="OK" ajax="false" action="quizz"> </p:commandButton></p:column>
 					</p:row>
@@ -59,9 +65,11 @@
 				</p:panelGrid>
 			</p:dialog>
 		</h:form>
+		
 		<ui:insert name="footer" >
 			<ui:include src="/footer.xhtml" />
 		</ui:insert>
+		
 	</h:body>
 </html>
 

@@ -10,16 +10,20 @@
 		<title>Login</title>
 		<h:outputStylesheet library="css" name="style.css" />  
 	</h:head>
+	
 	<h:body>
+	
 	    <ui:insert name="header" >
 			<ui:include src="user-interface.xhtml" />
 		</ui:insert>
 		
 		<div style="padding-left: 250px; padding-top: 100px; padding-right:350px">
+		
 			<h:form>
 				<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 				<p:fieldset legend="Enter Your information" style="margin-bottom:20px" >
 					<h:panelGrid  columns="2" cellpadding="5" >
+					
 						<h:outputLabel for="username" value="Username:" />
 						<p:inputText id="username" value="#{loginBean.username}" required="true" label="username" />
 						
@@ -31,11 +35,14 @@
 								<p:commandButton value="Login" action="#{loginBean.login}" update="growl"/>
 							</div>
 						</f:facet> 
+						
 						<p:watermark value="Enter your email" for="username" />
 						<p:watermark value="Enter your password" for="password" />
+						
 					</h:panelGrid>
-					 </p:fieldset>   
-	        </h:form>   
+				 </p:fieldset>   
+	        </h:form> 
+	          
 	        <h:form>
 	       		 <h:outputText value="Not a member yet ?" style="margin-left:25%;" />
 	        	<p:link value="Click here" href="singup.xhtml" />

@@ -16,15 +16,22 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
  		<ui:insert name="header" >
 		  	<ui:include src="user-header.xhtml" />
 		</ui:insert>
+		
 		<h:form enctype="multipart/form-data" >
+		
 			<div style=" margin-left: 300px;  margin-right: 500px;">
+			
 				<p:growl id="msgs" showDetail="true" />
 				<p:fieldset legend="Question" style="margin-bottom:20px">
+				
 					<h:panelGrid columns="1" cellpadding="5" >
-          					<h:graphicImage library="image" name ="#{questionBean.question.image}" alt="No image" rendered ="#{not empty questionBean.question.image}"/>
+					
+          				<h:graphicImage library="image" name ="#{questionBean.question.image}" alt="No image" rendered ="#{not empty questionBean.question.image}"/>
+						
 						<p:outputLabel value="Change picture" for="fileupload" />
 						<p:fileUpload id="fileupload" value="#{questionBean.file}" mode="simple"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" />
 						<p:message for="fileupload" />
+						
 						<p:separator />
 					
 						<p:outputLabel value="Category:" for="categ" />
@@ -33,6 +40,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 							<f:selectItems value="#{categoryBean.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
 						</p:selectOneMenu> 						
 						<p:message for="categ" />
+						
 						<p:separator />
 						
 						<p:outputLabel value="Description:" for="question" />
@@ -54,14 +62,20 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 						<p:outputLabel value="False " for="answer3" />
 						<h:inputText id="answer3" required="true" value="#{questionBean.question.answer.false3}"  requiredMessage="*required" p:placeHolder="Correct answer here"  />
 						<p:message for="answer3" />
+						
 					</h:panelGrid>
 
 				</p:fieldset>
 				<p:commandButton ajax="false"  value="update" action="#{questionBean.update}"/> 
+				
 			</div>
+			
 		</h:form>
+		
 		<ui:insert name="footer" >
 			<ui:include src="/footer.xhtml" />
 		</ui:insert>
+		
 	</h:body>
+	
 </html>	

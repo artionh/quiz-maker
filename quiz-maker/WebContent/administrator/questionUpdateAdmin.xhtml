@@ -16,6 +16,7 @@
 		<ui:insert name="header" >
 			<ui:include src="header.xhtml" />
 		</ui:insert>
+		
 		<h:form enctype="multipart/form-data">
 			<div style=" margin-left: 300px;  margin-right: 500px;">
 				<p:growl id="msgs" showDetail="true" />
@@ -61,9 +62,11 @@
 				<p:commandButton ajax="false"  value="update" action="#{questionBean.update}"/> 
 			</div>
 		</h:form>
+		
 		<ui:insert name="footer" >
 			<ui:include src="/footer.xhtml" />
 		</ui:insert>
+		
 	</h:body>
 	
 

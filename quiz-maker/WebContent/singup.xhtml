@@ -12,35 +12,47 @@
 	</h:head>
  
 	<h:body>
+	
 	    <ui:insert name="header" >
 			<ui:include src="user-interface.xhtml" />
 		</ui:insert>
 		
 		<div style="padding-left: 250px; padding-top: 100px; padding-right:350px">
+		
 			<h:form>
 				<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 				<p:fieldset legend="Enter Your information" style="margin-bottom:20px" >
+				
 					<h:panelGrid  columns="2" cellpadding="5" >
+					
 						<h:outputLabel for="username" value="Username:" />
 						<p:inputText id="username" value="#{userBean.user.username}" required="true" label="username" />
+						
 						 <h:outputLabel for="pwd1" value="Your password: *" />
         				<p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" label="Password 1" required="true" feedback="true"/>
+						
        					 <h:outputLabel for="pwd2" value="Verify Password: " />
        					 <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" required="true" />
+						 
 						<f:facet name="footer">
 							<div style="text-align: center">
 								<p:commandButton value="Create an account" actionListener="#{userBean.add}" update="growl @form"/>
 							</div>
 						</f:facet> 
+						
 						<p:watermark value="Enter your email" for="username" />
 						<p:watermark value="Enter your password" for="pwd1" />
 						<p:watermark value="Confirm your password" for="pwd2" />
+						
 					</h:panelGrid>
+					
 				</p:fieldset> 
 			</h:form>    
 		</div>
+		
 		<ui:insert name="footer" >
 			<ui:include src="footer.xhtml" />
 		</ui:insert>
+		
 	</h:body>
 </html>

@@ -31,27 +31,34 @@
 					<br></br>
 					<br></br>
 					<p:dataTable  id="questionTable" var="question" value="#{userBean.user.questions}" >
+						
 						<p:column headerText="Description">
 							<h:outputText value="#{question.name}"/>
 						</p:column> 
+						
 						<p:column headerText="Category">
 							<h:outputText value="#{question.category.name}"/>
 						</p:column> 
+						
 						<p:column headerText="Date">
 							<h:outputText value="#{question.date}"/>
 						</p:column>  
+						
 						<p:column headerText="Action" >       	
 							<p:commandButton value="View Question" icon="ui-icon-extlink" action="#{questionBean.view(question.id)}" >
 								<p:ajax event="dialogReturn" listener="#{dfView.onCarChosen}" />
 							</p:commandButton>
 						</p:column>   
+					
 					</p:dataTable>
 				</p:tab>
 			</p:accordionPanel>
 		</h:form>
+		
 		<ui:insert name="footer" >
 			<ui:include src="/footer.xhtml" />
 		</ui:insert>
+	
 	</h:body>
 
 </html>

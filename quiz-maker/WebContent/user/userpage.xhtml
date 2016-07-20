@@ -17,6 +17,7 @@
 		</ui:insert>
 		
 		<!-- Shtimi i nje pyetjeje nga useri -->
+		
 		<div style=" margin-left: 200px; margin-right: 400px;">
 			<h:form class="forma" enctype="multipart/form-data" >
 				<p:growl id="growl"  showDetail="true"/>
@@ -73,7 +74,9 @@
 		<p:spacer height="50" />
 		
 		<h:form >
+		
 			<!--Listimi i te gjitha pyetjeve te userit -->
+			
 			<p:accordionPanel >
 				<p:tab title="Your Questions">
 					<p:dataTable  id="questionTable" var="question" value="#{questionBean.questions}" >
@@ -111,6 +114,7 @@
 			<ui:insert name="footer" >
 				<ui:include src="/footer.xhtml" />
 			</ui:insert>	
+			
 	</h:body>
 </html>	
 	

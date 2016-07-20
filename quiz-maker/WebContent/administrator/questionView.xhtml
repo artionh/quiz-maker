@@ -20,25 +20,36 @@
 		<div style="text-align:center">
 			<h:graphicImage library="image" name ="#{questionBean.question.image}" rendered="#{not empty questionBean.question.image}" width="450"/>
 			<p:panelGrid  columns="2"  style="margin-left: 350px;">
+			
 				<h:outputLabel for="name" value="Question Name"></h:outputLabel>
-				<h:outputLabel for="name" value="#{questionBean.question.name}"></h:outputLabel>
-				<h:outputLabel for="name" value="Question Category"></h:outputLabel>
-				<h:outputLabel for="name" value="#{questionBean.question.category.name}"></h:outputLabel>
-				<h:outputLabel for="name" value="Question User"></h:outputLabel>
-				<h:outputLabel for="name" value="#{questionBean.question.useri.username}"></h:outputLabel>
-				<h:outputLabel for="name" value="Question Date"></h:outputLabel>
-				<h:outputLabel for="name" value="#{questionBean.question.date}"></h:outputLabel>
-				<h:outputLabel for="name" value="Question True answer"></h:outputLabel>
-				<h:outputLabel for="name" value="#{questionBean.question.answer.true1}"></h:outputLabel>
+				<h:outputLabel id="name" value="#{questionBean.question.name}"></h:outputLabel>
+				
+				<h:outputLabel for="category" value="Question Category"></h:outputLabel>
+				<h:outputLabel for="category" value="#{questionBean.question.category.name}"></h:outputLabel>
+				
+				<h:outputLabel for="user" value="Question User"></h:outputLabel>
+				<h:outputLabel id="user" value="#{questionBean.question.useri.username}"></h:outputLabel>
+				
+				<h:outputLabel for="date" value="Question Date"></h:outputLabel>
+				<h:outputLabel id="date" value="#{questionBean.question.date}"></h:outputLabel>
+				
+				<h:outputLabel for="true" value="Question True answer"></h:outputLabel>
+				<h:outputLabel id="true" value="#{questionBean.question.answer.true1}"></h:outputLabel>
+			
 			</p:panelGrid>
+			
 			<p:spacer height="50"/>
+			
 			<p:commandLink id="page" action="#{questionBean.turnBack}"> 
 				<h:outputText value="Turn Back to Dashboard"/>
 			</p:commandLink> 
+			
 			</div>
 		</h:form>
+		
 		<ui:insert name="footer" >
 			<ui:include src="/footer.xhtml" />
 		</ui:insert>
+		
 	</h:body>
 </html>
