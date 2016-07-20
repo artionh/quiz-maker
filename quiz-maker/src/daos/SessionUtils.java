@@ -13,10 +13,10 @@ public class SessionUtils {
 	}
 	
 //-------------------------------------------------------------------------------------------------------------------------
-	public static HttpServletRequest getRequest() {
+	/*public static HttpServletRequest getRequest() {
 		return (HttpServletRequest) FacesContext.getCurrentInstance()
 				.getExternalContext().getRequest();
-	}
+	}*/
 
 //-------------------------------------------------------------------------------------------------------------------------	
 	public static String getUserName() {

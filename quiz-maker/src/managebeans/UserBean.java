@@ -96,7 +96,7 @@ public class UserBean implements actions {
 		
 		if((loginBean.getUser().getPassword().equals(this.password)))
 			{	
-			if((loginBean.getUser().getPassword().length()<=5)||(loginBean.getUser().getPassword().equals("password")||(loginBean.getUser().getPassword().equals(loginBean.getUser().getUsername())))){
+			if((newPassword.length()<=5)||(newPassword.equals("password")||(newPassword.equals(loginBean.getUser().getUsername())))){
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "The password you set is not allowed or too weak, please try another! "));
 				
 			}
