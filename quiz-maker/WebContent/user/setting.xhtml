@@ -45,7 +45,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 					
 				</h:panelGrid>
 				
-				<p:commandButton update="matchGrid messages" value="Save" action="#{userBean.changePassword}"/>
+				<p:commandButton update="matchGrid messages @form" value="Save" action="#{userBean.changePassword}"/>
 				
 			</p:overlayPanel>
 			<p:spacer height="100" />
@@ -69,7 +69,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets" >
 					
 				</h:panelGrid>
 				
-				<p:commandButton update="matchGrid1 messages1" value="Deactivate" action="#{loginBean.deactivateAccount}"/>
+				<p:commandButton update="matchGrid1 messages1 @form" value="Deactivate" action="#{loginBean.deactivateAccount}"/>
 				
 			</p:overlayPanel>
 			
